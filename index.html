@@ -83,15 +83,14 @@ const products = [
 
 products.forEach(p => {
   document.write(`
-    <div class="product">
-    <img src="https://via.placeholder.com/300"> 
-      <h3>${Product 1}</h3>
-      <p>Rs{1500}</p>
+     <div class="product">
+      <img src="https://via.placeholder.com/300">
+      <h3>${p.name}</h3>
+      <p>${p.price}</p>
       <button onclick="order('${p.name}','${p.price}')">Order on WhatsApp</button>
     </div>
   `);
 });
-
 function order(name, price){
   let phone = "923165000045"; // ← your WhatsApp number
   let msg = `Hello AK Store,%0AI want to order:%0A${name}%0APrice: ${price}%0APayment: EasyPaisa/JazzCash/Bank`;
