@@ -97,7 +97,13 @@ const products = [
   {name:"Product 14", price:"Rs 1950", img:"images/product14.jpg"},
   {name:"Product 15", price:"Rs 3000", img:"images/product15.jpg"}
 ];
-
+products.forEach(p => {
+  document.write(`
+     <div class="product">
+      <img src="${p.img}" alt="${p.name}">
+      <h3>${p.name}</h3>
+      <p>${p.price}</p>
+      <button onclick="order('${p.name}','${p.price}')">Order on WhatsApp</button>
     </div>
      
     `);
