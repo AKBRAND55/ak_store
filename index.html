@@ -137,30 +137,6 @@ const products = [
   {name:"Product 14", price:"Rs 1950", img:"images/product14.jpg"},
   {name:"Product 15", price:"Rs 3000", img:"images/product15.jpg"}
 ];
-products.forEach(p => {
-  document.write(`
-     <div class="product">
-      <img src="${p.img}" alt="${p.name}">
-      <h3>${p.name}</h3>
-      <p>${p.price}</p>
-      <button onclick="order('${p.name}','${p.price}')">Order on WhatsApp</button>
-    </div>
-    
-     
-    `);
-});
-
-function order(name, price){
-  let phone = "923165000045";
-  let msg = `Hello AK Store,
-I want to order:
-Product: ${name}
-Price: ${price}
-Payment: EasyPaisa / JazzCash / Bank`;
-
-  let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(msg);
-  window.open(url, "_blank");
-}
   <script>
 // Products dropdown fill
 products.forEach(p => {
@@ -193,6 +169,31 @@ Payment Method: ${payment}`;
   window.open(url, "_blank");
 }
 </script>
+products.forEach(p => {
+  document.write(`
+     <div class="product">
+      <img src="${p.img}" alt="${p.name}">
+      <h3>${p.name}</h3>
+      <p>${p.price}</p>
+      <button onclick="order('${p.name}','${p.price}')">Order on WhatsApp</button>
+    </div>
+    
+     
+    `);
+});
+
+function order(name, price){
+  let phone = "923165000045";
+  let msg = `Hello AK Store,
+I want to order:
+Product: ${name}
+Price: ${price}
+Payment: EasyPaisa / JazzCash / Bank`;
+
+  let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(msg);
+  window.open(url, "_blank");
+}
+  
 </script>
 
 </div>
