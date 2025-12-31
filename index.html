@@ -108,6 +108,19 @@ footer { background:#000; color:#fff; text-align:center; padding:10px; margin-to
   <div class="testimonial">⭐ "High quality fragrances and fast delivery." – Ahmed R.</div>
   <div class="testimonial">⭐ "I love the Attar I bought, very elegant." – Ayesha T.</div>
 </div>
+  <div class="order-form">
+  <h2>Leave a Review</h2>
+  <input type="text" id="reviewName" placeholder="Your Name">
+  <select id="reviewStars">
+    <option value="⭐">⭐</option>
+    <option value="⭐⭐">⭐⭐</option>
+    <option value="⭐⭐⭐">⭐⭐⭐</option>
+    <option value="⭐⭐⭐⭐">⭐⭐⭐⭐</option>
+    <option value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐</option>
+  </select>
+  <input type="text" id="reviewText" placeholder="Your Review">
+  <button onclick="addReview()">Submit Review</button>
+</div>
 
 <footer>
   <p>©️ 2026 AK Perfume Brand | Pakistan | 
@@ -284,7 +297,27 @@ setInterval(()=>{
   let seconds=Math.floor((distance%(60*1000))/1000);
   timerSpan.textContent=`${hours}h ${minutes}m ${seconds}s`;
 },1000);
+<script>
+function addReview(){
+  const name=document.getElementById("reviewName").value.trim();
+  const stars=document.getElementById("reviewStars").value;
+  const text=document.getElementById("reviewText").value.trim();
 
+  if(!name || !text){
+    alert("Please fill all fields");
+    return;
+  }
+
+  const div=document.createElement("div");
+  div.className="testimonial";
+  div.innerHTML=`${stars} "${text}" – ${name}`;
+
+  document.querySelector(".testimonials").appendChild(div);
+
+  document.getElementById("reviewName").value="";
+  document.getElementById("reviewText").value="";
+}
+</script>
 </script>
 </body>
 </html>
