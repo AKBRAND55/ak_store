@@ -114,6 +114,31 @@ products.forEach(p => {
   <textarea id="address" placeholder="Delivery Address" required></textarea>
   <button type="submit">Order on WhatsApp</button>
 </form>
+
+<script>
+function sendOrder() {
+    let name = document.getElementById("name").value.trim();
+    let product = document.getElementById("product").value.trim();
+    let qty = document.getElementById("qty").value.trim();
+    let address = document.getElementById("address").value.trim();
+
+    if(!name || !product || !qty || !address) {
+        alert("Please fill all fields!");
+        return;
+    }
+
+    // WhatsApp number (without +)
+    let phone = "923165000045";
+
+    // Message formatting and URL encoding
+    let msg = `Hello AK Store,%0AI want to order:%0AProduct: ${encodeURIComponent(product)}%0AQuantity: ${encodeURIComponent(qty)}%0AName: ${encodeURIComponent(name)}%0AAddress: ${encodeURIComponent(address)}`;
+
+    let url = `https://wa.me/${phone}?text=${msg}`;
+
+    // Open WhatsApp in new tab
+    window.open(url, "_blank");
+}
+</script>
      
     `);
 });
