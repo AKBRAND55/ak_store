@@ -1,198 +1,128 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>AK Store</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-  .product{
-  border:1px solid #ddd;
-  padding:10px;
-  margin:10px;
-  border-radius:8px;
-  text-align:center;
-}
-.product img{
-  width:100%;
-  max-width:200px;
-}
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background: #f5f5f5;
-}
-header {
-  background: #000;
-  color: #fff;
-  padding: 15px;
-  text-align: center;
-}
-.products {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
-  padding: 20px;
-}
-.product {
-  background: #fff;
-  padding: 15px;
-  border-radius: 8px;
-  text-align: center;
-}
-.product img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 6px;
-}
-
-button {
-  background: green;
-  color: white;
-  border: none;
-  padding: 10px;
-  margin-top: 10px;
-  width: 100%;
-  border-radius: 5px;
-  cursor: pointer;
-}
-footer {
-  background: #000;
-  color: #fff;
-  text-align: center;
-  padding: 10px;
-}
-  .order-form{
-  background:#fff;
-  max-width:400px;
-  margin:20px auto;
-  padding:20px;
-  border-radius:10px;
-}
-
-.order-form h2{
-  text-align:center;
-}
-
-.order-form input,
-.order-form select{
-  width:100%;
-  padding:10px;
-  margin:8px 0;
-  border:1px solid #ccc;
-  border-radius:5px;
-}
+  body {
+    font-family: Arial, sans-serif;
+    margin:0;
+    background:#f5f5f5;
+  }
+  header {
+    background:#000;
+    color:#fff;
+    padding:15px;
+    text-align:center;
+  }
+  header p {
+    margin:5px 0;
+  }
+  header p.warning {
+    color:red;
+    font-weight:bold;
+  }
+  .products {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap:15px;
+    padding:20px;
+  }
+  .product {
+    background:#fff;
+    padding:15px;
+    border-radius:10px;
+    text-align:center;
+    box-shadow:0 2px 5px rgba(0,0,0,0.1);
+  }
+  .product img {
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    border-radius:6px;
+    margin-bottom:10px;
+  }
+  .product h3 {
+    margin:5px 0;
+  }
+  .product p.description {
+    font-size:14px;
+    color:#555;
+    min-height:40px;
+  }
+  .product p.price {
+    font-weight:bold;
+    margin:5px 0;
+  }
+  .product input[type="number"] {
+    width:60px;
+    padding:5px;
+    margin-top:5px;
+  }
+  button {
+    background:green;
+    color:white;
+    border:none;
+    padding:10px;
+    margin-top:10px;
+    width:100%;
+    border-radius:5px;
+    cursor:pointer;
+  }
+  button:hover {
+    background:#006400;
+  }
+  .order-form {
+    background:#fff;
+    max-width:500px;
+    margin:20px auto;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.1);
+  }
+  .order-form h2 {
+    text-align:center;
+  }
+  .order-form input,
+  .order-form select {
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+    border:1px solid #ccc;
+    border-radius:5px;
+  }
+  footer {
+    background:#000;
+    color:#fff;
+    text-align:center;
+    padding:10px;
+    margin-top:20px;
+  }
 </style>
 </head>
-
 <body>
 
 <header>
   <h1>AK Store</h1>
   <p>Order via EasyPaisa / JazzCash / Bank Transfer</p>
-   <p><b>Cash on Delivery Available All Over Pakistan</b></p>
-  <p style="color:red; text-align:center; font-weight:bold;">
-⚠️ Beware of fake pages & scammers.  
-Order only on our official WhatsApp number.
-</p>
-</header>  
-  
-  
-  <div class="products">
-    
-<script>
-const products = [
-  {name:"Ring Box", price:"Rs 1500", img:"product1.jpg"},
-  {name:"Product 2", price:"Rs 1800", img:"product2.jpg"},
-  {name:"Product 3", price:"Rs 2000", img:"product3.jpg"},
-  {name:"Product 4", price:"Rs 1700", img:"product4.jpg"},
-  {name:"Product 5", price:"Rs 2200", img:"product5.jpg"},
-  {name:"Product 6", price:"Rs 1600", img:"product6.jpg"},
-  {name:"Product 7", price:"Rs 1900", img:"product7.jpg"},
-  {name:"Product 8", price:"Rs 2100", img:"product8.jpg"},
-  {name:"Product 9", price:"Rs 2500", img:"product9.jpg"},
-  {name:"Product 10", price:"Rs 2300", img:"product10.jpg"},
-  {name:"Product 11", price:"Rs 1400", img:"product11.jpg"},
-  {name:"Product 12", price:"Rs 2600", img:"product12.jpg"},
-  {name:"Product 13", price:"Rs 1750", img:"product13.jpg"},
-  {name:"Product 14", price:"Rs 1950", img:"product14.jpg"},
-  {name:"Product 15", price:"Rs 3000", img:"product15.jpg"},
-  {name:"Product 16", price:"Rs 3500", img:"product15.jpg"},
-];
-  
-  products.forEach(p => {
-  document.write(`
-     <div class="product">
-      <img src="${p.img}" alt="${p.name}">
-      <h3>${p.name}</h3>
-      <p>${p.price}</p>
-      </div>
-    
-     
-    `);
-});
-  
-window.onload = function() {
-  const productSelect = document.getElementById("product");
-  products.forEach(p => {
-    let option = document.createElement("option");
-    option.value = p.name;
-    option.text = `${p.name} - ${p.price}`;
-    productSelect.add(option);
-  });
-}
-function order(name, price){
-  let phone = "923165000045";
-  let msg = `Hello AK Store,
-I want to order:
-Product: ${name}
-Price: ${price}
-Payment: EasyPaisa / JazzCash / Bank`;
+  <p><b>Cash on Delivery Available All Over Pakistan</b></p>
+  <p class="warning">⚠️ Beware of fake pages & scammers. Order only on our official WhatsApp number.</p>
+</header>
 
-  let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(msg);
-  window.open(url, "_blank");
-}
-  function submitOrder() {
-  // Form fields
-  let name = document.getElementById("name").value;
-  let phone = document.getElementById("phone").value;
-  let address = document.getElementById("address").value;
-  let product = document.getElementById("product").value;
-  let payment = document.getElementById("payment").value;
+<div class="products" id="products"></div>
 
-  // Validation
-  if (!name || !phone || !address || !product || !payment) {
-    alert("Please fill all fields before submitting!");
-    return;
-  }
-
-  // WhatsApp message
-  let storePhone = "923165000045"; // Replace with your store number
-  let msg = `Hello AK Store,
-I want to place an order:
-Name: ${name}
-Phone: ${phone}
-Address: ${address}
-Product: ${product}
-Payment Method: ${payment}`;
-
-  let url = "https://wa.me/" + storePhone + "?text=" + encodeURIComponent(msg);
-  window.open(url, "_blank");
-}
-  
-</script>
-
-</div>
 <div class="order-form">
   <h2>Place Your Order</h2>
-
   <input type="text" id="name" placeholder="Your Name" required>
   <input type="text" id="phone" placeholder="Phone Number" required>
   <input type="text" id="address" placeholder="Delivery Address" required>
 
-  <select id="product">
+  <select id="product-select">
     <option value="">Select Product</option>
   </select>
+
+  <input type="number" id="quantity" placeholder="Quantity" min="1" value="1">
 
   <select id="payment">
     <option value="Cash on Delivery">Cash on Delivery</option>
@@ -205,8 +135,110 @@ Payment Method: ${payment}`;
 </div>
 
 <footer>
-  <p>©️ 2025 AK Store | Pakistan All Rights Reserved </p>
+  <p>©️ 2025 AK Store | Pakistan</p>
 </footer>
+
+<script>
+const products = [
+  {name:"Ring Box", price:1500, img:"product1.jpg", description:"Elegant ring box, perfect for gifts."},
+  {name:"Product 2", price:1800, img:"product2.jpg", description:"High-quality product with amazing features."},
+  {name:"Product 3", price:2000, img:"product3.jpg", description:"Premium product for daily use."},
+  {name:"Product 4", price:1700, img:"images/product4.jpg", description:"Stylish and durable design."},
+  {name:"Product 5", price:2200, img:"images/product5.jpg", description:"Limited edition, grab fast!"},
+  {name:"Product 6", price:1600, img:"images/product6.jpg", description:"Affordable and reliable."},
+  {name:"Product 7", price:1900, img:"images/product7.jpg", description:"Best seller product."},
+  {name:"Product 8", price:2100, img:"images/product8.jpg", description:"High quality, long-lasting."},
+  {name:"Product 9", price:2500, img:"images/product9.jpg", description:"Exclusive product for premium users."},
+  {name:"Product 10", price:2300, img:"images/product10.jpg", description:"Popular choice among customers."},
+  {name:"Product 11", price:1400, img:"images/product11.jpg", description:"Compact and useful."},
+  {name:"Product 12", price:2600, img:"images/product12.jpg", description:"High-end product with warranty."},
+  {name:"Product 13", price:1750, img:"images/product13.jpg", description:"Perfect for gifting."},
+  {name:"Product 14", price:1950, img:"images/product14.jpg", description:"Stylish and affordable."},
+  {name:"Product 15", price:3000, img:"images/product15.jpg", description:"Luxury product for special occasions."}
+];
+
+// Populate product grid
+const productsDiv = document.getElementById("products");
+products.forEach((p, index) => {
+  const div = document.createElement("div");
+  div.className = "product";
+  div.innerHTML = `
+    <img src="${p.img}" alt="${p.name}">
+    <h3>${p.name}</h3>
+    <p class="description">${p.description}</p>
+    <p class="price">Rs ${p.price}</p>
+    <input type="number" id="qty-${index}" value="1" min="1">
+    <button onclick="addToCart(${index})">Add to Cart</button>
+  `;
+  productsDiv.appendChild(div);
+});
+
+// Populate product select dropdown
+const productSelect = document.getElementById("product-select");
+products.forEach(p => {
+  const option = document.createElement("option");
+  option.value = p.name;
+  option.textContent = `${p.name} - Rs ${p.price}`;
+  productSelect.appendChild(option);
+});
+
+// Cart system
+let cart = [];
+
+function addToCart(index){
+  const qty = parseInt(document.getElementById(`qty-${index}`).value);
+  const product = products[index];
+  const existing = cart.find(item => item.name === product.name);
+  if(existing){
+    existing.qty += qty;
+  } else {
+    cart.push({name: product.name, price: product.price, qty: qty});
+  }
+  alert(`${product.name} added to cart (${qty})`);
+}
+
+// Submit order via WhatsApp
+function submitOrder(){
+  const name = document.getElementById("name").value.trim();
+  const phoneNumber = document.getElementById("phone").value.trim();
+  const address = document.getElementById("address").value.trim();
+  const selectedProduct = document.getElementById("product-select").value;
+  const qtyInput = parseInt(document.getElementById("quantity").value);
+  const payment = document.getElementById("payment").value;
+
+  if(!name || !phoneNumber || !address){
+    alert("Please fill all required fields!");
+    return;
+  }
+
+  let orderItems = "";
+  if(cart.length > 0){
+    cart.forEach(item => {
+      orderItems += `${item.name} - Rs ${item.price} x ${item.qty}\n`;
+    });
+  } else if(selectedProduct){
+    const product = products.find(p => p.name === selectedProduct);
+    orderItems = `${product.name} - Rs ${product.price} x ${qtyInput}`;
+  } else {
+    alert("Please select a product or add to cart!");
+    return;
+  }
+
+  const msg = `Hello AK Store,
+I want to place an order:
+
+Name: ${name}
+Phone: ${phoneNumber}
+Address: ${address}
+Order Details:
+${orderItems}
+Payment Method: ${payment}`;
+
+  const waNumber = "923165000045"; // Your WhatsApp number
+  const url = "https://wa.me/" + waNumber + "?text=" + encodeURIComponent(msg);
+  window.open(url, "_blank");
+}
+</script>
 
 </body>
 </html>
