@@ -105,6 +105,15 @@ products.forEach(p => {
       <p>${p.price}</p>
       <button onclick="order('${p.name}','${p.price}')">Order on WhatsApp</button>
     </div>
+    <h2 style="text-align:center;">Place Your Order</h2>
+
+<form id="orderForm" onsubmit="sendOrder(); return false;" class="order-form">
+  <input type="text" id="name" placeholder="Your Name" required>
+  <input type="text" id="product" placeholder="Perfume Name" required>
+  <input type="number" id="qty" placeholder="Quantity" required>
+  <textarea id="address" placeholder="Delivery Address" required></textarea>
+  <button type="submit">Order on WhatsApp</button>
+</form>
      
     `);
 });
