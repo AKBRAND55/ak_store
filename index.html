@@ -137,39 +137,8 @@ const products = [
   {name:"Product 14", price:"Rs 1950", img:"images/product14.jpg"},
   {name:"Product 15", price:"Rs 3000", img:"images/product15.jpg"}
 ];
-  <script>
-// Products dropdown fill
-products.forEach(p => {
-  let option = document.createElement("option");
-  option.value = p.name + " - " + p.price;
-  option.textContent = p.name + " (" + p.price + ")";
-  document.getElementById("product").appendChild(option);
-});
-
-function submitOrder(){
-  let name = document.getElementById("name").value;
-  let phone = document.getElementById("phone").value;
-  let address = document.getElementById("address").value;
-  let product = document.getElementById("product").value;
-  let payment = document.getElementById("payment").value;
-
-  if(!name || !phone || !address || !product){
-    alert("Please fill all fields");
-    return;
-  }
-
-  let msg = `Hello AK Store,
-Name: ${name}
-Phone: ${phone}
-Address: ${address}
-Product: ${product}
-Payment Method: ${payment}`;
-
-  let url = "https://wa.me/923165000045?text=" + encodeURIComponent(msg);
-  window.open(url, "_blank");
-}
-</script>
-products.forEach(p => {
+  
+  products.forEach(p => {
   document.write(`
      <div class="product">
       <img src="${p.img}" alt="${p.name}">
