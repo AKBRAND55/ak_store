@@ -150,7 +150,14 @@ const products = [
      
     `);
 });
-
+const productSelect = document.getElementById("product");
+products.forEach(p => {
+  let option = document.createElement("option");
+  option.value = p.name;
+  option.text = `${p.name} - ${p.price}`;
+  productSelect.add(option);
+});
+  
 function order(name, price){
   let phone = "923165000045";
   let msg = `Hello AK Store,
@@ -162,7 +169,33 @@ Payment: EasyPaisa / JazzCash / Bank`;
   let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(msg);
   window.open(url, "_blank");
 }
-  
+  function submitOrder() {
+  // Form fields
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phone").value;
+  let address = document.getElementById("address").value;
+  let product = document.getElementById("product").value;
+  let payment = document.getElementById("payment").value;
+
+  // Validation
+  if (!name || !phone || !address || !product || !payment) {
+    alert("Please fill all fields before submitting!");
+    return;
+  }
+
+  // WhatsApp message
+  let storePhone = "923165000045"; // Replace with your store number
+  let msg = `Hello AK Store,
+I want to place an order:
+Name: ${name}
+Phone: ${phone}
+Address: ${address}
+Product: ${product}
+Payment Method: ${payment}`;
+
+  let url = "https://wa.me/" + storePhone + "?text=" + encodeURIComponent(msg);
+  window.open(url, "_blank");
+}
 </script>
 
 </div>
