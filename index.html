@@ -127,7 +127,11 @@ const products = [
       <p>${p.price}</p>
       <button onclick="order('${p.name}','${p.price}')">Order on WhatsApp</button>
     </div>
-    <div class="order-form">
+    
+     
+    `);
+});
+  <div class="order-form">
   <h2>Place Your Order</h2>
 
   <input type="text" id="name" placeholder="Your Name" required>
@@ -147,9 +151,7 @@ const products = [
 
   <button onclick="submitOrder()">Submit Order on WhatsApp</button>
 </div>
-     
-    `);
-});
+  
 const productSelect = document.getElementById("product");
 products.forEach(p => {
   let option = document.createElement("option");
