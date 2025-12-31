@@ -99,27 +99,7 @@ Order only on our official WhatsApp number.
   
   
   <div class="products">
-    <div class="order-form">
-  <h2>Place Your Order</h2>
-
-  <input type="text" id="name" placeholder="Your Name" required>
-  <input type="text" id="phone" placeholder="Phone Number" required>
-  <input type="text" id="address" placeholder="Delivery Address" required>
-
-  <select id="product">
-    <option value="">Select Product</option>
-  </select>
-
-  <select id="payment">
-    <option value="Cash on Delivery">Cash on Delivery</option>
-    <option value="EasyPaisa">EasyPaisa</option>
-    <option value="JazzCash">JazzCash</option>
-    <option value="Bank Transfer">Bank Transfer</option>
-  </select>
-
-  <button onclick="submitOrder()">Submit Order on WhatsApp</button>
-</div>
-
+    
 <script>
 const products = [
   {name:"Ring Box", price:"Rs 1500", img:"product1.jpg"},
@@ -201,6 +181,26 @@ Payment Method: ${payment}`;
 }
 </script>
 
+</div>
+<div class="order-form">
+  <h2>Place Your Order</h2>
+
+  <input type="text" id="name" placeholder="Your Name" required>
+  <input type="text" id="phone" placeholder="Phone Number" required>
+  <input type="text" id="address" placeholder="Delivery Address" required>
+
+  <select id="product">
+    <option value="">Select Product</option>
+  </select>
+
+  <select id="payment">
+    <option value="Cash on Delivery">Cash on Delivery</option>
+    <option value="EasyPaisa">EasyPaisa</option>
+    <option value="JazzCash">JazzCash</option>
+    <option value="Bank Transfer">Bank Transfer</option>
+  </select>
+
+  <button onclick="submitOrder()">Submit Order on WhatsApp</button>
 </div>
 
 <footer>
