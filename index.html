@@ -1,18 +1,17 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>AK Store</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-/* ===== GENERAL STYLES ===== */
 body { font-family: Arial, sans-serif; margin:0; background:#f5f5f5; }
 header { background:#000; color:#fff; padding:15px; text-align:center; position:sticky; top:0; z-index:100; }
 header p.warning { color:red; font-weight:bold; margin:5px 0; }
 .products { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:15px; padding:20px; }
 .product { background:#fff; padding:15px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.1); position:relative; overflow:hidden; transition: transform 0.3s, box-shadow 0.3s; }
 .product:hover { transform: translateY(-5px); box-shadow:0 5px 15px rgba(0,0,0,0.2); }
-.product img { width:100%; height:180px; object-fit:cover; border-radius:6px; margin-bottom:10px; }
+.product img { width:100%; height:180px; object-fit:cover; border-radius:6px; margin-bottom:10px; cursor:pointer; }
 .product h3 { margin:5px 0; }
 .product p.description { font-size:14px; color:#555; min-height:40px; }
 .product p.price { font-weight:bold; margin:5px 0; }
@@ -25,7 +24,7 @@ button:hover { background:#006400; }
 .order-form input, .order-form select { width:100%; padding:10px; margin:8px 0; border:1px solid #ccc; border-radius:5px; }
 footer { background:#000; color:#fff; text-align:center; padding:10px; margin-top:20px; }
 
-/* ===== CART MODAL ===== */
+/* CART */
 #cartModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:200; }
 #cartModal .cart-content { background:#fff; max-width:400px; width:90%; padding:20px; border-radius:10px; position:relative; }
 #cartModal .cart-content h3 { margin-top:0; }
@@ -34,13 +33,17 @@ footer { background:#000; color:#fff; text-align:center; padding:10px; margin-to
 #cartBtn { position:fixed; bottom:20px; right:20px; background:orange; color:#fff; border:none; padding:15px; border-radius:50%; cursor:pointer; z-index:150; font-weight:bold; }
 #cartBtn:hover { background:#e69500; }
 
-/* ===== TESTIMONIALS ===== */
+/* Testimonials */
 .testimonials { background:#fff; padding:20px; margin:20px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.1);}
 .testimonials h2 { text-align:center; margin-bottom:15px; }
 .testimonials .testimonial { margin-bottom:15px; font-style:italic; border-left:3px solid green; padding-left:10px; }
 
-/* ===== COUNTDOWN TIMER ===== */
+/* Countdown */
 #countdown { text-align:center; margin:20px; font-weight:bold; font-size:18px; color:red; }
+
+/* Search / Sort */
+#searchBar { max-width:400px; margin:20px auto; display:flex; gap:10px; }
+#searchBar input, #searchBar select { padding:10px; flex:1; border:1px solid #ccc; border-radius:5px; }
 </style>
 </head>
 <body>
@@ -52,8 +55,18 @@ footer { background:#000; color:#fff; text-align:center; padding:10px; margin-to
   <p class="warning">⚠️ Beware of fake pages & scammers. Order only on our official WhatsApp number.</p>
 </header>
 
-<!-- Countdown Timer -->
+<!-- Countdown -->
 <div id="countdown">Flash Sale ends in: <span id="timer"></span></div>
+
+<!-- Search / Sort -->
+<div id="searchBar">
+  <input type="text" id="searchInput" placeholder="Search products...">
+  <select id="sortSelect">
+    <option value="">Sort</option>
+    <option value="low">Price: Low to High</option>
+    <option value="high">Price: High to Low</option>
+  </select>
+</div>
 
 <!-- Products Grid -->
 <div class="products" id="products"></div>
@@ -68,8 +81,6 @@ footer { background:#000; color:#fff; text-align:center; padding:10px; margin-to
     <button onclick="checkoutCart()">Checkout via WhatsApp</button>
   </div>
 </div>
-
-<!-- Floating Cart Button -->
 <button id="cartBtn" onclick="toggleCart()">Cart 🛒</button>
 
 <!-- Order Form -->
@@ -104,59 +115,87 @@ footer { background:#000; color:#fff; text-align:center; padding:10px; margin-to
 </footer>
 
 <script>
-// ===== PRODUCTS DATA 20 =====
+// ===== PRODUCTS 20 =====
 const products=[
-  {name:"Ring Box", price:1500, img:"product1.jpg", description:"Elegant ring box.", badge:"New"},
-  {name:"Product 2", price:1800, img:"product2.jpg", description:"High-quality product.", badge:"Sale"},
-  {name:"Product 3", price:2000, img:"product3.jpg", description:"Premium daily use.", badge:"Best Seller"},
-  {name:"Product 4", price:1700, img:"images/product4.jpg", description:"Stylish design.", badge:"New"},
-  {name:"Product 5", price:2200, img:"images/product5.jpg", description:"Limited edition.", badge:"Sale"},
-  {name:"Product 6", price:1600, img:"images/product6.jpg", description:"Affordable and reliable.", badge:""},
-  {name:"Product 7", price:1900, img:"images/product7.jpg", description:"Best seller product.", badge:"Best Seller"},
-  {name:"Product 8", price:2100, img:"images/product8.jpg", description:"High quality.", badge:""},
-  {name:"Product 9", price:2500, img:"images/product9.jpg", description:"Exclusive product.", badge:"New"},
-  {name:"Product 10", price:2300, img:"images/product10.jpg", description:"Popular choice.", badge:"Sale"},
-  {name:"Product 11", price:1400, img:"images/product11.jpg", description:"Compact and useful.", badge:""},
-  {name:"Product 12", price:2600, img:"images/product12.jpg", description:"High-end product.", badge:"Best Seller"},
-  {name:"Product 13", price:1750, img:"images/product13.jpg", description:"Perfect for gifting.", badge:"New"},
-  {name:"Product 14", price:1950, img:"images/product14.jpg", description:"Stylish and affordable.", badge:"Sale"},
-  {name:"Product 15", price:3000, img:"images/product15.jpg", description:"Luxury product.", badge:"Best Seller"},
-  {name:"Product 16", price:1800, img:"images/product16.jpg", description:"Trendy item.", badge:"New"},
-  {name:"Product 17", price:1700, img:"images/product17.jpg", description:"High quality.", badge:"Sale"},
-  {name:"Product 18", price:2000, img:"images/product18.jpg", description:"Elegant design.", badge:""},
-  {name:"Product 19", price:2200, img:"images/product19.jpg", description:"Limited stock.", badge:"New"},
-  {name:"Product 20", price:2400, img:"images/product20.jpg", description:"Premium material.", badge:"Best Seller"}
+  {name:"Ring Box", price:1500, imgs:["product1.jpg","product1b.jpg"], description:"Elegant ring box.", badge:"New"},
+  {name:"Product 2", price:1800, imgs:["product2.jpg","product2b.jpg"], description:"High-quality product.", badge:"Sale"},
+  {name:"Product 3", price:2000, imgs:["product3.jpg"], description:"Premium daily use.", badge:"Best Seller"},
+  {name:"Product 4", price:1700, imgs:["product4.jpg"], description:"Stylish design.", badge:"New"},
+  {name:"Product 5", price:2200, imgs:["product5.jpg"], description:"Limited edition.", badge:"Sale"},
+  {name:"Product 6", price:1600, imgs:["product6.jpg"], description:"Affordable and reliable.", badge:""},
+  {name:"Product 7", price:1900, imgs:["product7.jpg"], description:"Best seller product.", badge:"Best Seller"},
+  {name:"Product 8", price:2100, imgs:["product8.jpg"], description:"High quality.", badge:""},
+  {name:"Product 9", price:2500, imgs:["product9.jpg"], description:"Exclusive product.", badge:"New"},
+  {name:"Product 10", price:2300, imgs:["product10.jpg"], description:"Popular choice.", badge:"Sale"},
+  {name:"Product 11", price:1400, imgs:["product11.jpg"], description:"Compact and useful.", badge:""},
+  {name:"Product 12", price:2600, imgs:["product12.jpg"], description:"High-end product.", badge:"Best Seller"},
+  {name:"Product 13", price:1750, imgs:["product13.jpg"], description:"Perfect for gifting.", badge:"New"},
+  {name:"Product 14", price:1950, imgs:["product14.jpg"], description:"Stylish and affordable.", badge:"Sale"},
+  {name:"Product 15", price:3000, imgs:["product15.jpg"], description:"Luxury product.", badge:"Best Seller"},
+  {name:"Product 16", price:1800, imgs:["product16.jpg"], description:"Trendy item.", badge:"New"},
+  {name:"Product 17", price:1700, imgs:["product17.jpg"], description:"High quality.", badge:"Sale"},
+  {name:"Product 18", price:2000, imgs:["product18.jpg"], description:"Elegant design.", badge:""},
+  {name:"Product 19", price:2200, imgs:["product19.jpg"], description:"Limited stock.", badge:"New"},
+  {name:"Product 20", price:2400, imgs:["product20.jpg"], description:"Premium material.", badge:"Best Seller"}
 ];
 
 let cart=[];
 
 // ===== DISPLAY PRODUCTS =====
 const productsDiv=document.getElementById("products");
-products.forEach((p,index)=>{
-  const div=document.createElement("div");
-  div.className="product";
-  div.innerHTML=`
-    ${p.badge?`<div class="badge">${p.badge}</div>`:""}
-    <img src="${p.img}" alt="${p.name}">
-    <h3>${p.name}</h3>
-    <p class="description">${p.description}</p>
-    <p class="price">Rs ${p.price}</p>
-    <input type="number" id="qty-${index}" value="1" min="1">
-    <button onclick="addToCart(${index})">Add to Cart</button>
-  `;
-  productsDiv.appendChild(div);
-});
-
-// Populate product select
 const productSelect=document.getElementById("product-select");
-products.forEach(p=>{
-  const option=document.createElement("option");
-  option.value=p.name;
-  option.textContent=`${p.name} - Rs ${p.price}`;
-  productSelect.appendChild(option);
+
+function displayProducts(list){
+  productsDiv.innerHTML="";
+  productSelect.innerHTML='<option value="">Select Product</option>';
+  list.forEach((p,index)=>{
+    // Product Card
+    const div=document.createElement("div");
+    div.className="product";
+    div.innerHTML=`
+      ${p.badge?`<div class="badge">${p.badge}</div>`:""}
+      <img src="${p.imgs[0]}" alt="${p.name}" onclick="nextImage(${index})" id="img-${index}">
+      <h3>${p.name}</h3>
+      <p class="description">${p.description}</p>
+      <p class="price">Rs ${p.price}</p>
+      <input type="number" id="qty-${index}" value="1" min="1">
+      <button onclick="addToCart(${index})">Add to Cart</button>
+    `;
+    productsDiv.appendChild(div);
+    // Add to order select
+    const option=document.createElement("option");
+    option.value=p.name;
+    option.textContent=`${p.name} - Rs ${p.price}`;
+    productSelect.appendChild(option);
+  });
+}
+
+// Image Slider
+function nextImage(index){
+  const imgEl=document.getElementById(`img-${index}`);
+  const product=products[index];
+  const current=product.imgs.indexOf(imgEl.src.split("/").pop());
+  const next=(current+1)%product.imgs.length;
+  imgEl.src=product.imgs[next];
+}
+
+displayProducts(products);
+
+// ===== SEARCH / SORT =====
+document.getElementById("searchInput").addEventListener("input",()=>{
+  const term=document.getElementById("searchInput").value.toLowerCase();
+  let filtered=products.filter(p=>p.name.toLowerCase().includes(term));
+  displayProducts(filtered);
+});
+document.getElementById("sortSelect").addEventListener("change",()=>{
+  const val=document.getElementById("sortSelect").value;
+  let sorted=[...products];
+  if(val==="low") sorted.sort((a,b)=>a.price-b.price);
+  else if(val==="high") sorted.sort((a,b)=>b.price-a.price);
+  displayProducts(sorted);
 });
 
-// ===== CART FUNCTIONS =====
+// ===== CART =====
 function addToCart(index){
   const qty=parseInt(document.getElementById(`qty-${index}`).value);
   const product=products[index];
@@ -185,10 +224,7 @@ function updateCart(){
   document.getElementById("cartTotal").textContent=total;
 }
 
-function removeCart(index){
-  cart.splice(index,1);
-  updateCart();
-}
+function removeCart(index){ cart.splice(index,1); updateCart(); }
 
 function checkoutCart(){
   if(cart.length===0){ alert("Cart is empty!"); return; }
@@ -212,7 +248,7 @@ Payment Method: ${payment}`;
   window.open("https://wa.me/"+waNumber+"?text="+encodeURIComponent(msg),"_blank");
 }
 
-// ===== ORDER FORM FUNCTION =====
+// ===== ORDER FORM =====
 function submitOrder(){
   const name=document.getElementById("name").value.trim();
   const phone=document.getElementById("phone").value.trim();
@@ -220,17 +256,11 @@ function submitOrder(){
   const selectedProduct=document.getElementById("product-select").value;
   const qty=parseInt(document.getElementById("quantity").value);
   const payment=document.getElementById("payment").value;
-
   if(!name||!phone||!address){ alert("Fill all fields!"); return; }
-
   let orderItems="";
-  if(cart.length>0){
-    cart.forEach(item=>{ orderItems+=`${item.name} - Rs ${item.price} x ${item.qty}\n`; });
-  } else if(selectedProduct){
-    const product=products.find(p=>p.name===selectedProduct);
-    orderItems=`${product.name} - Rs ${product.price} x ${qty}`;
-  } else { alert("Select product or add to cart!"); return; }
-
+  if(cart.length>0){ cart.forEach(item=>{ orderItems+=`${item.name} - Rs ${item.price} x ${item.qty}\n`; }); }
+  else if(selectedProduct){ const product=products.find(p=>p.name===selectedProduct); orderItems=`${product.name} - Rs ${product.price} x ${qty}`; }
+  else{ alert("Select product or add to cart!"); return; }
   const msg=`Hello AK Store,
 I want to place an order:
 
@@ -244,7 +274,7 @@ Payment Method: ${payment}`;
   window.open("https://wa.me/"+waNumber+"?text="+encodeURIComponent(msg),"_blank");
 }
 
-// ===== COUNTDOWN TIMER =====
+// ===== COUNTDOWN =====
 let countdownDate=new Date().getTime()+2*60*60*1000;
 let timerSpan=document.getElementById("timer");
 setInterval(()=>{
@@ -256,6 +286,7 @@ setInterval(()=>{
   let seconds=Math.floor((distance%(60*1000))/1000);
   timerSpan.textContent=`${hours}h ${minutes}m ${seconds}s`;
 },1000);
+
 </script>
 </body>
 </html>
