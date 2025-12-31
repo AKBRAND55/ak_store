@@ -133,14 +133,15 @@ const products = [
 });
   
   
-const productSelect = document.getElementById("product");
-products.forEach(p => {
-  let option = document.createElement("option");
-  option.value = p.name;
-  option.text = `${p.name} - ${p.price}`;
-  productSelect.add(option);
-});
-  
+window.onload = function() {
+  const productSelect = document.getElementById("product");
+  products.forEach(p => {
+    let option = document.createElement("option");
+    option.value = p.name;
+    option.text = `${p.name} - ${p.price}`;
+    productSelect.add(option);
+  });
+}
 function order(name, price){
   let phone = "923165000045";
   let msg = `Hello AK Store,
