@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>AK Store</title>
+<title>AK Perfume Store</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body { font-family: Arial, sans-serif; margin:0; background:#f5f5f5; }
 header { background:#000; color:#fff; padding:15px; text-align:center; position:sticky; top:0; z-index:100; }
 header p.warning { color:red; font-weight:bold; margin:5px 0; }
+#searchBar { max-width:600px; margin:20px auto; display:flex; gap:10px; }
+#searchBar input, #searchBar select { padding:10px; flex:1; border:1px solid #ccc; border-radius:5px; }
 .products { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:15px; padding:20px; }
 .product { background:#fff; padding:15px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.1); position:relative; overflow:hidden; transition: transform 0.3s, box-shadow 0.3s; }
 .product:hover { transform: translateY(-5px); box-shadow:0 5px 15px rgba(0,0,0,0.2); }
@@ -40,27 +42,29 @@ footer { background:#000; color:#fff; text-align:center; padding:10px; margin-to
 
 /* Countdown */
 #countdown { text-align:center; margin:20px; font-weight:bold; font-size:18px; color:red; }
-
-/* Search / Sort */
-#searchBar { max-width:400px; margin:20px auto; display:flex; gap:10px; }
-#searchBar input, #searchBar select { padding:10px; flex:1; border:1px solid #ccc; border-radius:5px; }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>AK Store</h1>
-  <p>Order via EasyPaisa / JazzCash / Bank Transfer</p>
-  <p><b>Cash on Delivery Available All Over Pakistan</b></p>
-  <p class="warning">⚠️ Beware of fake pages & scammers. Order only on our official WhatsApp number.</p>
+  <h1>AK Perfume Store</h1>
+  <p>Cash on Delivery | EasyPaisa | JazzCash | Bank Transfer</p>
+  <p class="warning">⚠️ Order only via official WhatsApp number to avoid scams.</p>
 </header>
 
-<!-- Countdown -->
 <div id="countdown">Flash Sale ends in: <span id="timer"></span></div>
 
-<!-- Search / Sort -->
 <div id="searchBar">
-  <input type="text" id="searchInput" placeholder="Search products...">
+  <input type="text" id="searchInput" placeholder="Search perfumes...">
+  <select id="categorySelect">
+    <option value="">All Categories</option>
+    <option value="Men">Men</option>
+    <option value="Women">Women</option>
+    <option value="Unisex">Unisex</option>
+    <option value="Luxury">Luxury</option>
+    <option value="Attar">Attar</option>
+    <option value="Spray">Spray</option>
+  </select>
   <select id="sortSelect">
     <option value="">Sort</option>
     <option value="low">Price: Low to High</option>
@@ -68,10 +72,8 @@ footer { background:#000; color:#fff; text-align:center; padding:10px; margin-to
   </select>
 </div>
 
-<!-- Products Grid -->
 <div class="products" id="products"></div>
 
-<!-- Cart Modal -->
 <div id="cartModal">
   <div class="cart-content">
     <span class="close-cart" onclick="toggleCart()">×</span>
@@ -83,15 +85,12 @@ footer { background:#000; color:#fff; text-align:center; padding:10px; margin-to
 </div>
 <button id="cartBtn" onclick="toggleCart()">Cart 🛒</button>
 
-<!-- Order Form -->
 <div class="order-form">
   <h2>Place Your Order</h2>
   <input type="text" id="name" placeholder="Your Name" required>
   <input type="text" id="phone" placeholder="Phone Number" required>
   <input type="text" id="address" placeholder="Delivery Address" required>
-  <select id="product-select">
-    <option value="">Select Product</option>
-  </select>
+  <select id="product-select"><option value="">Select Perfume</option></select>
   <input type="number" id="quantity" placeholder="Quantity" min="1" value="1">
   <select id="payment">
     <option value="Cash on Delivery">Cash on Delivery</option>
@@ -102,67 +101,63 @@ footer { background:#000; color:#fff; text-align:center; padding:10px; margin-to
   <button onclick="submitOrder()">Submit Order on WhatsApp</button>
 </div>
 
-<!-- Testimonials -->
 <div class="testimonials">
   <h2>What Our Customers Say</h2>
-  <div class="testimonial">⭐ "Amazing products and fast delivery!" – Sara K.</div>
-  <div class="testimonial">⭐ "High quality and great service." – Ahmed R.</div>
-  <div class="testimonial">⭐ "I love the Ring Box I bought, very elegant." – Ayesha T.</div>
+  <div class="testimonial">⭐ "Best perfume collection!" – Sara K.</div>
+  <div class="testimonial">⭐ "High quality fragrances and fast delivery." – Ahmed R.</div>
+  <div class="testimonial">⭐ "I love the Attar I bought, very elegant." – Ayesha T.</div>
 </div>
 
 <footer>
-  <p>©️ 2025 AK Store | Pakistan</p>
+  <p>©️ 2025 AK Perfume Store | Pakistan</p>
 </footer>
 
 <script>
-// ===== PRODUCTS 20 =====
+// 20 Perfumes with categories
 const products=[
-  {name:"Ring Box", price:1500, imgs:["product1.jpg","product1b.jpg"], description:"Elegant ring box.", badge:"New"},
-  {name:"Product 2", price:1800, imgs:["product2.jpg","product2b.jpg"], description:"High-quality product.", badge:"Sale"},
-  {name:"Product 3", price:2000, imgs:["product3.jpg"], description:"Premium daily use.", badge:"Best Seller"},
-  {name:"Product 4", price:1700, imgs:["product4.jpg"], description:"Stylish design.", badge:"New"},
-  {name:"Product 5", price:2200, imgs:["product5.jpg"], description:"Limited edition.", badge:"Sale"},
-  {name:"Product 6", price:1600, imgs:["product6.jpg"], description:"Affordable and reliable.", badge:""},
-  {name:"Product 7", price:1900, imgs:["product7.jpg"], description:"Best seller product.", badge:"Best Seller"},
-  {name:"Product 8", price:2100, imgs:["product8.jpg"], description:"High quality.", badge:""},
-  {name:"Product 9", price:2500, imgs:["product9.jpg"], description:"Exclusive product.", badge:"New"},
-  {name:"Product 10", price:2300, imgs:["product10.jpg"], description:"Popular choice.", badge:"Sale"},
-  {name:"Product 11", price:1400, imgs:["product11.jpg"], description:"Compact and useful.", badge:""},
-  {name:"Product 12", price:2600, imgs:["product12.jpg"], description:"High-end product.", badge:"Best Seller"},
-  {name:"Product 13", price:1750, imgs:["product13.jpg"], description:"Perfect for gifting.", badge:"New"},
-  {name:"Product 14", price:1950, imgs:["product14.jpg"], description:"Stylish and affordable.", badge:"Sale"},
-  {name:"Product 15", price:3000, imgs:["product15.jpg"], description:"Luxury product.", badge:"Best Seller"},
-  {name:"Product 16", price:1800, imgs:["product16.jpg"], description:"Trendy item.", badge:"New"},
-  {name:"Product 17", price:1700, imgs:["product17.jpg"], description:"High quality.", badge:"Sale"},
-  {name:"Product 18", price:2000, imgs:["product18.jpg"], description:"Elegant design.", badge:""},
-  {name:"Product 19", price:2200, imgs:["product19.jpg"], description:"Limited stock.", badge:"New"},
-  {name:"Product 20", price:2400, imgs:["product20.jpg"], description:"Premium material.", badge:"Best Seller"}
+{name:"Royal Attar", price:1500, imgs:["product1.jpg","product1b.jpg"], category:"Attar", badge:"New"},
+{name:"Ocean Spray", price:1800, imgs:["product2.jpg","product2b.jpg"], category:"Spray", badge:"Sale"},
+{name:"Mystic Oud", price:2000, imgs:["product3.jpg"], category:"Luxury", badge:"Best Seller"},
+{name:"Rose Delight", price:1700, imgs:["product4.jpg"], category:"Women", badge:"New"},
+{name:"Fresh Musk", price:2200, imgs:["product5.jpg"], category:"Men", badge:"Sale"},
+{name:"Amber Night", price:1600, imgs:["product6.jpg"], category:"Unisex", badge:""},
+{name:"Golden Essence", price:1900, imgs:["product7.jpg"], category:"Luxury", badge:"Best Seller"},
+{name:"Lotus Breeze", price:2100, imgs:["product8.jpg"], category:"Women", badge:""},
+{name:"Sandalwood Aura", price:2500, imgs:["product9.jpg"], category:"Men", badge:"New"},
+{name:"Vanilla Sky", price:2300, imgs:["product10.jpg"], category:"Unisex", badge:"Sale"},
+{name:"Jasmine Touch", price:1400, imgs:["product11.jpg"], category:"Women", badge:""},
+{name:"Mystic Oud II", price:2600, imgs:["product12.jpg"], category:"Luxury", badge:"Best Seller"},
+{name:"Rose Musk", price:1750, imgs:["product13.jpg"], category:"Women", badge:"New"},
+{name:"Oriental Night", price:1950, imgs:["product14.jpg"], category:"Men", badge:"Sale"},
+{name:"Luxury Essence", price:3000, imgs:["product15.jpg"], category:"Luxury", badge:"Best Seller"},
+{name:"Cool Mist", price:1800, imgs:["product16.jpg"], category:"Unisex", badge:"New"},
+{name:"Amber Rose", price:1700, imgs:["product17.jpg"], category:"Women", badge:"Sale"},
+{name:"Royal Musk", price:2000, imgs:["product18.jpg"], category:"Men", badge:""},
+{name:"Exotic Oud", price:2200, imgs:["product19.jpg"], category:"Luxury", badge:"New"},
+{name:"Mystic Bloom", price:2400, imgs:["product20.jpg"], category:"Women", badge:"Best Seller"}
 ];
 
 let cart=[];
 
-// ===== DISPLAY PRODUCTS =====
 const productsDiv=document.getElementById("products");
 const productSelect=document.getElementById("product-select");
 
 function displayProducts(list){
   productsDiv.innerHTML="";
-  productSelect.innerHTML='<option value="">Select Product</option>';
+  productSelect.innerHTML='<option value="">Select Perfume</option>';
   list.forEach((p,index)=>{
-    // Product Card
     const div=document.createElement("div");
     div.className="product";
     div.innerHTML=`
       ${p.badge?`<div class="badge">${p.badge}</div>`:""}
       <img src="${p.imgs[0]}" alt="${p.name}" onclick="nextImage(${index})" id="img-${index}">
       <h3>${p.name}</h3>
-      <p class="description">${p.description}</p>
+      <p class="description">${p.category}</p>
       <p class="price">Rs ${p.price}</p>
       <input type="number" id="qty-${index}" value="1" min="1">
       <button onclick="addToCart(${index})">Add to Cart</button>
     `;
     productsDiv.appendChild(div);
-    // Add to order select
     const option=document.createElement("option");
     option.value=p.name;
     option.textContent=`${p.name} - Rs ${p.price}`;
@@ -170,7 +165,7 @@ function displayProducts(list){
   });
 }
 
-// Image Slider
+// Image slider
 function nextImage(index){
   const imgEl=document.getElementById(`img-${index}`);
   const product=products[index];
@@ -181,21 +176,22 @@ function nextImage(index){
 
 displayProducts(products);
 
-// ===== SEARCH / SORT =====
-document.getElementById("searchInput").addEventListener("input",()=>{
-  const term=document.getElementById("searchInput").value.toLowerCase();
+// Search / Filter / Sort
+function filterAndSort(){
+  let term=document.getElementById("searchInput").value.toLowerCase();
+  let category=document.getElementById("categorySelect").value;
+  let sortVal=document.getElementById("sortSelect").value;
   let filtered=products.filter(p=>p.name.toLowerCase().includes(term));
+  if(category) filtered=filtered.filter(p=>p.category===category);
+  if(sortVal==="low") filtered.sort((a,b)=>a.price-b.price);
+  if(sortVal==="high") filtered.sort((a,b)=>b.price-a.price);
   displayProducts(filtered);
-});
-document.getElementById("sortSelect").addEventListener("change",()=>{
-  const val=document.getElementById("sortSelect").value;
-  let sorted=[...products];
-  if(val==="low") sorted.sort((a,b)=>a.price-b.price);
-  else if(val==="high") sorted.sort((a,b)=>b.price-a.price);
-  displayProducts(sorted);
-});
+}
+document.getElementById("searchInput").addEventListener("input", filterAndSort);
+document.getElementById("categorySelect").addEventListener("change", filterAndSort);
+document.getElementById("sortSelect").addEventListener("change", filterAndSort);
 
-// ===== CART =====
+// Cart functions
 function addToCart(index){
   const qty=parseInt(document.getElementById(`qty-${index}`).value);
   const product=products[index];
@@ -235,7 +231,7 @@ function checkoutCart(){
   if(!name||!phone||!address){ alert("Fill personal info!"); return; }
   let orderItems="";
   cart.forEach(item=>{ orderItems+=`${item.name} - Rs ${item.price} x ${item.qty}\n`; });
-  const msg=`Hello AK Store,
+  const msg=`Hello AK Perfume Store,
 I want to place an order:
 
 Name: ${name}
@@ -248,7 +244,7 @@ Payment Method: ${payment}`;
   window.open("https://wa.me/"+waNumber+"?text="+encodeURIComponent(msg),"_blank");
 }
 
-// ===== ORDER FORM =====
+// Order form
 function submitOrder(){
   const name=document.getElementById("name").value.trim();
   const phone=document.getElementById("phone").value.trim();
@@ -261,7 +257,7 @@ function submitOrder(){
   if(cart.length>0){ cart.forEach(item=>{ orderItems+=`${item.name} - Rs ${item.price} x ${item.qty}\n`; }); }
   else if(selectedProduct){ const product=products.find(p=>p.name===selectedProduct); orderItems=`${product.name} - Rs ${product.price} x ${qty}`; }
   else{ alert("Select product or add to cart!"); return; }
-  const msg=`Hello AK Store,
+  const msg=`Hello AK Perfume Store,
 I want to place an order:
 
 Name: ${name}
@@ -274,7 +270,7 @@ Payment Method: ${payment}`;
   window.open("https://wa.me/"+waNumber+"?text="+encodeURIComponent(msg),"_blank");
 }
 
-// ===== COUNTDOWN =====
+// Countdown
 let countdownDate=new Date().getTime()+2*60*60*1000;
 let timerSpan=document.getElementById("timer");
 setInterval(()=>{
