@@ -97,7 +97,15 @@ const products = [
   {name:"Product 14", price:"Rs 1950", img:"images/product14.jpg"},
   {name:"Product 15", price:"Rs 3000", img:"images/product15.jpg"}
 ];
+<h2 style="text-align:center;">Place Your Order</h2>
 
+<form id="orderForm" onsubmit="sendOrder(); return false;" class="order-form">
+  <input type="text" id="name" placeholder="Your Name" required>
+  <input type="text" id="product" placeholder="Product Name" required>
+  <input type="number" id="qty" placeholder="Quantity" required>
+  <textarea id="address" placeholder="Delivery Address" required></textarea>
+  <button type="submit">Order on WhatsApp</button>
+</form>
 products.forEach(p => {
   document.write(`
      <div class="product">
