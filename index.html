@@ -137,22 +137,6 @@ const products = [
     `);
 });
   
-function filterProducts(cat) {
-  const container = document.querySelector('.products');
-  container.innerHTML = ''; // pehle saare products clear karo
-  products.forEach(p => {
-    if(cat === 'All' || p.category === cat || (cat === 'Under 2000' && p.price <= 2000)) {
-      container.innerHTML += `
-        <div class="product">
-          <img src="${p.img}" alt="${p.name}">
-          <h3>${p.name}</h3>
-          <p>Rs ${p.price}</p>
-          <button onclick="order('${p.name}','Rs ${p.price}')">Order on WhatsApp</button>
-        </div>
-      `;
-    }
-  });
-}  
 window.onload = function() {
   const productSelect = document.getElementById("product");
   products.forEach(p => {
@@ -200,6 +184,22 @@ Payment Method: ${payment}`;
   let url = "https://wa.me/" + storePhone + "?text=" + encodeURIComponent(msg);
   window.open(url, "_blank");
 }
+  function filterProducts(cat) {
+  const container = document.querySelector('.products');
+  container.innerHTML = ''; // pehle saare products clear karo
+  products.forEach(p => {
+    if(cat === 'All' || p.category === cat || (cat === 'Under 2000' && p.price <= 2000)) {
+      container.innerHTML += `
+        <div class="product">
+          <img src="${p.img}" alt="${p.name}">
+          <h3>${p.name}</h3>
+          <p>Rs ${p.price}</p>
+          <button onclick="order('${p.name}','Rs ${p.price}')">Order on WhatsApp</button>
+        </div>
+      `;
+    }
+  });
+}  
 </script>
 
 </div>
