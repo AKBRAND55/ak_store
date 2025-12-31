@@ -5,100 +5,155 @@
 <title>AK Store</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    margin:0;
-    background:#f5f5f5;
-  }
-  header {
-    background:#000;
-    color:#fff;
-    padding:15px;
-    text-align:center;
-  }
-  header p {
-    margin:5px 0;
-  }
-  header p.warning {
-    color:red;
-    font-weight:bold;
-  }
-  .products {
-    display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap:15px;
-    padding:20px;
-  }
-  .product {
-    background:#fff;
-    padding:15px;
-    border-radius:10px;
-    text-align:center;
-    box-shadow:0 2px 5px rgba(0,0,0,0.1);
-  }
-  .product img {
-    width:100%;
-    height:180px;
-    object-fit:cover;
-    border-radius:6px;
-    margin-bottom:10px;
-  }
-  .product h3 {
-    margin:5px 0;
-  }
-  .product p.description {
-    font-size:14px;
-    color:#555;
-    min-height:40px;
-  }
-  .product p.price {
-    font-weight:bold;
-    margin:5px 0;
-  }
-  .product input[type="number"] {
-    width:60px;
-    padding:5px;
-    margin-top:5px;
-  }
-  button {
-    background:green;
-    color:white;
-    border:none;
-    padding:10px;
-    margin-top:10px;
-    width:100%;
-    border-radius:5px;
-    cursor:pointer;
-  }
-  button:hover {
-    background:#006400;
-  }
-  .order-form {
-    background:#fff;
-    max-width:500px;
-    margin:20px auto;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 2px 5px rgba(0,0,0,0.1);
-  }
-  .order-form h2 {
-    text-align:center;
-  }
-  .order-form input,
-  .order-form select {
-    width:100%;
-    padding:10px;
-    margin:8px 0;
-    border:1px solid #ccc;
-    border-radius:5px;
-  }
-  footer {
-    background:#000;
-    color:#fff;
-    text-align:center;
-    padding:10px;
-    margin-top:20px;
-  }
+/* ===== GENERAL STYLES ===== */
+body {
+  font-family: Arial, sans-serif;
+  margin:0;
+  background:#f5f5f5;
+}
+header {
+  background:#000;
+  color:#fff;
+  padding:15px;
+  text-align:center;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+header p.warning {
+  color:red;
+  font-weight:bold;
+  margin:5px 0;
+}
+.products {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap:15px;
+  padding:20px;
+}
+.product {
+  background:#fff;
+  padding:15px;
+  border-radius:10px;
+  text-align:center;
+  box-shadow:0 2px 5px rgba(0,0,0,0.1);
+  position:relative;
+  overflow:hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.product:hover {
+  transform: translateY(-5px);
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+.product img {
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  border-radius:6px;
+  margin-bottom:10px;
+}
+.product h3 { margin:5px 0; }
+.product p.description {
+  font-size:14px;
+  color:#555;
+  min-height:40px;
+}
+.product p.price { font-weight:bold; margin:5px 0; }
+.product .badge {
+  position:absolute;
+  top:10px;
+  left:10px;
+  background:red;
+  color:#fff;
+  padding:3px 8px;
+  border-radius:5px;
+  font-size:12px;
+}
+.product input[type="number"] {
+  width:60px;
+  padding:5px;
+  margin-top:5px;
+}
+button {
+  background:green;
+  color:white;
+  border:none;
+  padding:10px;
+  margin-top:10px;
+  width:100%;
+  border-radius:5px;
+  cursor:pointer;
+}
+button:hover { background:#006400; }
+.order-form {
+  background:#fff;
+  max-width:500px;
+  margin:20px auto;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+.order-form h2 { text-align:center; }
+.order-form input, .order-form select { width:100%; padding:10px; margin:8px 0; border:1px solid #ccc; border-radius:5px; }
+footer {
+  background:#000;
+  color:#fff;
+  text-align:center;
+  padding:10px;
+  margin-top:20px;
+}
+
+/* ===== CART MODAL ===== */
+#cartModal {
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+  justify-content:center;
+  align-items:center;
+  z-index:200;
+}
+#cartModal .cart-content {
+  background:#fff;
+  max-width:400px;
+  width:90%;
+  padding:20px;
+  border-radius:10px;
+  position:relative;
+}
+#cartModal .cart-content h3 { margin-top:0; }
+#cartModal .cart-item { display:flex; justify-content:space-between; margin-bottom:10px; }
+#cartModal .close-cart {
+  position:absolute;
+  top:10px; right:15px;
+  cursor:pointer;
+  font-weight:bold;
+  font-size:18px;
+}
+#cartBtn {
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:orange;
+  color:#fff;
+  border:none;
+  padding:15px;
+  border-radius:50%;
+  cursor:pointer;
+  z-index:150;
+  font-weight:bold;
+}
+#cartBtn:hover { background:#e69500; }
+
+/* ===== TESTIMONIALS ===== */
+.testimonials { background:#fff; padding:20px; margin:20px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+.testimonials h2 { text-align:center; margin-bottom:15px; }
+.testimonials .testimonial { margin-bottom:15px; font-style:italic; border-left:3px solid green; padding-left:10px; }
+
+/* ===== COUNTDOWN TIMER ===== */
+#countdown { text-align:center; margin:20px; font-weight:bold; font-size:18px; color:red; }
 </style>
 </head>
 <body>
@@ -110,28 +165,51 @@
   <p class="warning">⚠️ Beware of fake pages & scammers. Order only on our official WhatsApp number.</p>
 </header>
 
+<!-- Countdown Timer -->
+<div id="countdown">Flash Sale ends in: <span id="timer"></span></div>
+
+<!-- Products Grid -->
 <div class="products" id="products"></div>
 
+<!-- Cart Modal -->
+<div id="cartModal">
+  <div class="cart-content">
+    <span class="close-cart" onclick="toggleCart()">×</span>
+    <h3>Your Cart</h3>
+    <div id="cartItems"></div>
+    <p><b>Total: Rs <span id="cartTotal">0</span></b></p>
+    <button onclick="checkoutCart()">Checkout via WhatsApp</button>
+  </div>
+</div>
+
+<!-- Floating Cart Button -->
+<button id="cartBtn" onclick="toggleCart()">Cart 🛒</button>
+
+<!-- Order Form -->
 <div class="order-form">
   <h2>Place Your Order</h2>
   <input type="text" id="name" placeholder="Your Name" required>
   <input type="text" id="phone" placeholder="Phone Number" required>
   <input type="text" id="address" placeholder="Delivery Address" required>
-
   <select id="product-select">
     <option value="">Select Product</option>
   </select>
-
   <input type="number" id="quantity" placeholder="Quantity" min="1" value="1">
-
   <select id="payment">
     <option value="Cash on Delivery">Cash on Delivery</option>
     <option value="EasyPaisa">EasyPaisa</option>
     <option value="JazzCash">JazzCash</option>
     <option value="Bank Transfer">Bank Transfer</option>
   </select>
-
   <button onclick="submitOrder()">Submit Order on WhatsApp</button>
+</div>
+
+<!-- Testimonials -->
+<div class="testimonials">
+  <h2>What Our Customers Say</h2>
+  <div class="testimonial">⭐ "Amazing products and fast delivery!" – Sara K.</div>
+  <div class="testimonial">⭐ "High quality and great service." – Ahmed R.</div>
+  <div class="testimonial">⭐ "I love the Ring Box I bought, very elegant." – Ayesha T.</div>
 </div>
 
 <footer>
@@ -139,30 +217,24 @@
 </footer>
 
 <script>
+// ===== PRODUCTS DATA =====
 const products = [
-  {name:"Ring Box", price:1500, img:"product1.jpg", description:"Elegant ring box, perfect for gifts."},
-  {name:"Product 2", price:1800, img:"product2.jpg", description:"High-quality product with amazing features."},
-  {name:"Product 3", price:2000, img:"product3.jpg", description:"Premium product for daily use."},
-  {name:"Product 4", price:1700, img:"images/product4.jpg", description:"Stylish and durable design."},
-  {name:"Product 5", price:2200, img:"images/product5.jpg", description:"Limited edition, grab fast!"},
-  {name:"Product 6", price:1600, img:"images/product6.jpg", description:"Affordable and reliable."},
-  {name:"Product 7", price:1900, img:"images/product7.jpg", description:"Best seller product."},
-  {name:"Product 8", price:2100, img:"images/product8.jpg", description:"High quality, long-lasting."},
-  {name:"Product 9", price:2500, img:"images/product9.jpg", description:"Exclusive product for premium users."},
-  {name:"Product 10", price:2300, img:"images/product10.jpg", description:"Popular choice among customers."},
-  {name:"Product 11", price:1400, img:"images/product11.jpg", description:"Compact and useful."},
-  {name:"Product 12", price:2600, img:"images/product12.jpg", description:"High-end product with warranty."},
-  {name:"Product 13", price:1750, img:"images/product13.jpg", description:"Perfect for gifting."},
-  {name:"Product 14", price:1950, img:"images/product14.jpg", description:"Stylish and affordable."},
-  {name:"Product 15", price:3000, img:"images/product15.jpg", description:"Luxury product for special occasions."}
+  {name:"Ring Box", price:1500, img:"product1.jpg", description:"Elegant ring box.", badge:"New"},
+  {name:"Product 2", price:1800, img:"product2.jpg", description:"High-quality product.", badge:"Sale"},
+  {name:"Product 3", price:2000, img:"product3.jpg", description:"Premium daily use.", badge:"Best Seller"},
+  {name:"Product 4", price:1700, img:"images/product4.jpg", description:"Stylish design.", badge:""},
+  {name:"Product 5", price:2200, img:"images/product5.jpg", description:"Limited edition.", badge:"Sale"}
 ];
 
-// Populate product grid
+let cart = [];
+
+// ===== DISPLAY PRODUCTS =====
 const productsDiv = document.getElementById("products");
-products.forEach((p, index) => {
+products.forEach((p,index)=>{
   const div = document.createElement("div");
   div.className = "product";
   div.innerHTML = `
+    ${p.badge?`<div class="badge">${p.badge}</div>`:""}
     <img src="${p.img}" alt="${p.name}">
     <h3>${p.name}</h3>
     <p class="description">${p.description}</p>
@@ -173,72 +245,115 @@ products.forEach((p, index) => {
   productsDiv.appendChild(div);
 });
 
-// Populate product select dropdown
+// Populate product select
 const productSelect = document.getElementById("product-select");
-products.forEach(p => {
+products.forEach(p=>{
   const option = document.createElement("option");
-  option.value = p.name;
-  option.textContent = `${p.name} - Rs ${p.price}`;
+  option.value=p.name;
+  option.textContent=`${p.name} - Rs ${p.price}`;
   productSelect.appendChild(option);
 });
 
-// Cart system
-let cart = [];
-
+// ===== CART FUNCTIONS =====
 function addToCart(index){
-  const qty = parseInt(document.getElementById(`qty-${index}`).value);
-  const product = products[index];
-  const existing = cart.find(item => item.name === product.name);
-  if(existing){
-    existing.qty += qty;
-  } else {
-    cart.push({name: product.name, price: product.price, qty: qty});
-  }
+  const qty=parseInt(document.getElementById(`qty-${index}`).value);
+  const product=products[index];
+  const existing=cart.find(item=>item.name===product.name);
+  if(existing){ existing.qty+=qty; } else { cart.push({name:product.name,price:product.price,qty:qty}); }
   alert(`${product.name} added to cart (${qty})`);
 }
 
-// Submit order via WhatsApp
-function submitOrder(){
-  const name = document.getElementById("name").value.trim();
-  const phoneNumber = document.getElementById("phone").value.trim();
-  const address = document.getElementById("address").value.trim();
-  const selectedProduct = document.getElementById("product-select").value;
-  const qtyInput = parseInt(document.getElementById("quantity").value);
-  const payment = document.getElementById("payment").value;
+function toggleCart(){
+  const modal=document.getElementById("cartModal");
+  modal.style.display=modal.style.display==="flex"?"none":"flex";
+  updateCart();
+}
 
-  if(!name || !phoneNumber || !address){
-    alert("Please fill all required fields!");
-    return;
-  }
+function updateCart(){
+  const itemsDiv=document.getElementById("cartItems");
+  itemsDiv.innerHTML="";
+  let total=0;
+  cart.forEach((item,index)=>{
+    total+=item.price*item.qty;
+    const div=document.createElement("div");
+    div.className="cart-item";
+    div.innerHTML=`${item.name} x ${item.qty} <span>Rs ${item.price*item.qty}</span> <button onclick="removeCart(${index})">❌</button>`;
+    itemsDiv.appendChild(div);
+  });
+  document.getElementById("cartTotal").textContent=total;
+}
 
-  let orderItems = "";
-  if(cart.length > 0){
-    cart.forEach(item => {
-      orderItems += `${item.name} - Rs ${item.price} x ${item.qty}\n`;
-    });
-  } else if(selectedProduct){
-    const product = products.find(p => p.name === selectedProduct);
-    orderItems = `${product.name} - Rs ${product.price} x ${qtyInput}`;
-  } else {
-    alert("Please select a product or add to cart!");
-    return;
-  }
+function removeCart(index){
+  cart.splice(index,1);
+  updateCart();
+}
 
-  const msg = `Hello AK Store,
+function checkoutCart(){
+  if(cart.length===0){ alert("Cart is empty!"); return; }
+  const name=document.getElementById("name").value.trim();
+  const phone=document.getElementById("phone").value.trim();
+  const address=document.getElementById("address").value.trim();
+  const payment=document.getElementById("payment").value;
+  if(!name||!phone||!address){ alert("Fill personal info!"); return; }
+  let orderItems="";
+  cart.forEach(item=>{ orderItems+=`${item.name} - Rs ${item.price} x ${item.qty}\n`; });
+  const msg=`Hello AK Store,
 I want to place an order:
 
 Name: ${name}
-Phone: ${phoneNumber}
+Phone: ${phone}
 Address: ${address}
 Order Details:
 ${orderItems}
 Payment Method: ${payment}`;
-
-  const waNumber = "923165000045"; // Your WhatsApp number
-  const url = "https://wa.me/" + waNumber + "?text=" + encodeURIComponent(msg);
-  window.open(url, "_blank");
+  const waNumber="923165000045";
+  window.open("https://wa.me/"+waNumber+"?text="+encodeURIComponent(msg),"_blank");
 }
-</script>
 
+// ===== ORDER FORM FUNCTION =====
+function submitOrder(){
+  const name=document.getElementById("name").value.trim();
+  const phone=document.getElementById("phone").value.trim();
+  const address=document.getElementById("address").value.trim();
+  const selectedProduct=document.getElementById("product-select").value;
+  const qty=parseInt(document.getElementById("quantity").value);
+  const payment=document.getElementById("payment").value;
+
+  if(!name||!phone||!address){ alert("Fill all fields!"); return; }
+
+  let orderItems="";
+  if(cart.length>0){
+    cart.forEach(item=>{ orderItems+=`${item.name} - Rs ${item.price} x ${item.qty}\n`; });
+  } else if(selectedProduct){
+    const product=products.find(p=>p.name===selectedProduct);
+    orderItems=`${product.name} - Rs ${product.price} x ${qty}`;
+  } else { alert("Select product or add to cart!"); return; }
+
+  const msg=`Hello AK Store,
+I want to place an order:
+
+Name: ${name}
+Phone: ${phone}
+Address: ${address}
+Order Details:
+${orderItems}
+Payment Method: ${payment}`;
+  const waNumber="923165000045";
+  window.open("https://wa.me/"+waNumber+"?text="+encodeURIComponent(msg),"_blank");
+}
+
+// ===== COUNTDOWN TIMER =====
+let countdownDate = new Date().getTime() + 2*60*60*1000; // 2 hours from now
+let timerSpan=document.getElementById("timer");
+setInterval(()=>{
+  let now=new Date().getTime();
+  let distance=countdownDate-now;
+  if(distance<0){ timerSpan.textContent="Sale ended"; return; }
+  let hours=Math.floor((distance%(24*60*60*1000))/(1000*60*60));
+  let minutes=Math.floor((distance%(60*60*1000))/(1000*60));
+  let seconds=Math.floor((distance%(60*1000))/1000);
+  timerSpan.textContent=`${hours}h ${minutes}m ${seconds}s`;
+},1000);
+</script>
 </body>
 </html>
