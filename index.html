@@ -2,101 +2,43 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>AK Perfume Store </title>
+<title>AK Perfume Store</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body { font-family: Arial, sans-serif; margin:0; background:#f5f5f5; }
-header { background:#000; color:#fff; padding:15px; text-align:center; position:sticky; top:0; z-index:100; }
+header { background:#000; color:#fff; padding:15px; text-align:center; }
 header p.warning { color:red; font-weight:bold; margin:5px 0; }
-.category-menu { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:15px 0; }
-.category-menu button { padding:8px 15px; border:none; border-radius:5px; cursor:pointer; background:#333; color:#fff; }
-.category-menu button.active { background:green; }
-#searchBar { max-width:600px; margin:20px auto; display:flex; gap:10px; }
-#searchBar input, #searchBar select, #couponInput { padding:10px; flex:1; border:1px solid #ccc; border-radius:5px; }
-.products { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:15px; padding:20px; }
-.product { background:#fff; padding:15px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.1); position:relative; overflow:hidden; transition: transform 0.3s, box-shadow 0.3s; }
-.product:hover { transform: translateY(-5px); box-shadow:0 5px 15px rgba(0,0,0,0.2); }
-.product img { width:100%; height:180px; object-fit:cover; border-radius:6px; margin-bottom:10px; cursor:pointer; transition: transform 0.3s; }
+.products { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:15px; padding:20px; }
+.product { background:#fff; padding:15px; border-radius:8px; text-align:center; position:relative; }
+.product img { width:100%; height:180px; object-fit:cover; border-radius:6px; cursor:pointer; transition: transform 0.3s; }
 .product img:hover { transform: scale(1.05); }
 .product h3 { margin:5px 0; }
-.product p.description { font-size:14px; color:#555; min-height:40px; }
 .product p.price { font-weight:bold; margin:5px 0; }
 .product .badge { position:absolute; top:10px; left:10px; background:red; color:#fff; padding:3px 8px; border-radius:5px; font-size:12px; }
-.product input[type="number"] { width:60px; padding:5px; margin-top:5px; }
 button { background:green; color:white; border:none; padding:10px; margin-top:10px; width:100%; border-radius:5px; cursor:pointer; }
 button:hover { background:#006400; }
-.order-form { background:#fff; max-width:500px; margin:20px auto; padding:20px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
+.order-form { background:#fff; max-width:400px; margin:20px auto; padding:20px; border-radius:10px; }
 .order-form h2 { text-align:center; }
 .order-form input, .order-form select { width:100%; padding:10px; margin:8px 0; border:1px solid #ccc; border-radius:5px; }
-footer { background:#000; color:#fff; text-align:center; padding:10px; margin-top:20px; }
-#cartModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:200; }
-#cartModal .cart-content { background:#fff; max-width:400px; width:90%; padding:20px; border-radius:10px; position:relative; }
-#cartModal .cart-content h3 { margin-top:0; }
-#cartModal .cart-item { display:flex; justify-content:space-between; margin-bottom:10px; }
-#cartModal .close-cart { position:absolute; top:10px; right:15px; cursor:pointer; font-weight:bold; font-size:18px; }
-#cartBtn { position:fixed; bottom:20px; right:20px; background:orange; color:#fff; border:none; padding:15px; border-radius:50%; cursor:pointer; z-index:150; font-weight:bold; }
-#cartBtn:hover { background:#e69500; }
-.testimonials { background:#fff; padding:20px; margin:20px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
-.testimonials h2 { text-align:center; margin-bottom:15px; }
-.testimonials .testimonial { margin-bottom:15px; font-style:italic; border-left:3px solid green; padding-left:10px; }
-#countdown { text-align:center; margin:20px; font-weight:bold; font-size:18px; color:red; }
-.recently-viewed { background:#fff; padding:15px; margin:20px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
-.recently-viewed h3 { margin-top:0; text-align:center; }
-.recently-viewed .rv-item { font-size:14px; padding:5px 0; border-bottom:1px solid #ddd; }
-.coupon-section { max-width:400px; margin:10px auto; display:flex; gap:10px; }
-.coupon-section input { flex:1; }
+footer { background:#000; color:#fff; text-align:center; padding:10px; }
 </style>
 </head>
 <body>
 <header>
-  <h1>AK Perfume Store Pro</h1>
-  <p>Cash on Delivery | EasyPaisa | JazzCash | Bank Transfer</p>
-  <p class="warning">⚠️ Order only via official WhatsApp number to avoid scams.</p>
+  <h1>AK Perfume Store</h1>
+  <p>Order via EasyPaisa / JazzCash / Bank Transfer</p>
+  <p><b>Cash on Delivery Available All Over Pakistan</b></p>
+  <p class="warning">⚠️ Beware of fake pages & scammers. Order only on our official WhatsApp number.</p>
 </header>
-<div id="countdown">Flash Sale ends in: <span id="timer"></span></div>
-<div class="category-menu" id="categoryMenu">
-  <button class="active" onclick="filterCategory('')">All</button>
-  <button onclick="filterCategory('Men')">Men</button>
-  <button onclick="filterCategory('Women')">Women</button>
-  <button onclick="filterCategory('Unisex')">Unisex</button>
-  <button onclick="filterCategory('Luxury')">Luxury</button>
-  <button onclick="filterCategory('Attar')">Attar</button>
-  <button onclick="filterCategory('Spray')">Spray</button>
-</div>
-<div id="searchBar">
-  <input type="text" id="searchInput" placeholder="Search perfumes...">
-  <select id="sortSelect">
-    <option value="">Sort</option>
-    <option value="low">Price: Low to High</option>
-    <option value="high">Price: High to Low</option>
-  </select>
-</div>
-<div class="coupon-section">
-  <input type="text" id="couponInput" placeholder="Enter coupon code">
-  <button onclick="applyCoupon()">Apply</button>
-</div>
-<div class="products" id="products"></div>
-<div class="recently-viewed" id="recentlyViewed">
-  <h3>Recently Viewed</h3>
-  <div id="rvItems"></div>
-</div>
-<div id="cartModal">
-  <div class="cart-content">
-    <span class="close-cart" onclick="toggleCart()">×</span>
-    <h3>Your Cart</h3>
-    <div id="cartItems"></div>
-    <p><b>Total: Rs <span id="cartTotal">0</span></b></p>
-    <button onclick="checkoutCart()">Checkout via WhatsApp</button>
-  </div>
-</div>
-<button id="cartBtn" onclick="toggleCart()">Cart 🛒</button>
+
 <div class="order-form">
   <h2>Place Your Order</h2>
   <input type="text" id="name" placeholder="Your Name" required>
   <input type="text" id="phone" placeholder="Phone Number" required>
   <input type="text" id="address" placeholder="Delivery Address" required>
-  <select id="product-select"><option value="">Select Perfume</option></select>
-  <input type="number" id="quantity" placeholder="Quantity" min="1" value="1">
+  <select id="product">
+    <option value="">Select Product</option>
+  </select>
   <select id="payment">
     <option value="Cash on Delivery">Cash on Delivery</option>
     <option value="EasyPaisa">EasyPaisa</option>
@@ -105,40 +47,80 @@ footer { background:#000; color:#fff; text-align:center; padding:10px; margin-to
   </select>
   <button onclick="submitOrder()">Submit Order on WhatsApp</button>
 </div>
-<div class="testimonials">
-  <h2>What Our Customers Say</h2>
-  <div class="testimonial">⭐ "Best perfume collection!" – Sara K.</div>
-  <div class="testimonial">⭐ "High quality fragrances and fast delivery." – Ahmed R.</div>
-  <div class="testimonial">⭐ "I love the Attar I bought, very elegant." – Ayesha T.</div>
-</div>
+
+<div class="products" id="products"></div>
+
 <footer>
-  <p>©️ 2025 AK Perfume Store Pro | Pakistan</p>
+  <p>©️ 2026 AK Perfume Store | Pakistan</p>
 </footer>
+
 <script>
-// Full product array, cart, recently viewed, discount
-const products=[
-  {name:"Royal Attar", price:1500, imgs:["product1.jpg","product1b.jpg"], category:"Attar", badge:"New", stock:10},
-  {name:"Ocean Spray", price:1800, imgs:["product2.jpg","product2b.jpg"], category:"Spray", badge:"Sale", stock:5},
-  {name:"Mystic Oud", price:2000, imgs:["product3.jpg"], category:"Luxury", badge:"Best Seller", stock:8},
-  {name:"Rose Delight", price:1700, imgs:["product4.jpg"], category:"Women", badge:"New", stock:12},
-  {name:"Fresh Musk", price:2200, imgs:["product5.jpg"], category:"Men", badge:"Sale", stock:4},
-  {name:"Amber Night", price:1600, imgs:["product6.jpg"], category:"Unisex", badge:"", stock:15},
-  {name:"Golden Essence", price:1900, imgs:["product7.jpg"], category:"Luxury", badge:"Best Seller", stock:7},
-  {name:"Lotus Breeze", price:2100, imgs:["product8.jpg"], category:"Women", badge:"", stock:6},
-  {name:"Sandalwood Aura", price:2500, imgs:["product9.jpg"], category:"Men", badge:"New", stock:3},
-  {name:"Vanilla Sky", price:2300, imgs:["product10.jpg"], category:"Unisex", badge:"Sale", stock:10},
-  {name:"Jasmine Touch", price:1400, imgs:["product11.jpg"], category:"Women", badge:"", stock:20},
-  {name:"Mystic Oud II", price:2600, imgs:["product12.jpg"], category:"Luxury", badge:"Best Seller", stock:2},
-  {name:"Rose Musk", price:1750, imgs:["product13.jpg"], category:"Women", badge:"New", stock:5},
-  {name:"Oriental Night", price:1950, imgs:["product14.jpg"], category:"Men", badge:"Sale", stock:6},
-  {name:"Luxury Essence", price:3000, imgs:["product15.jpg"], category:"Luxury", badge:"Best Seller", stock:1},
-  {name:"Cool Mist", price:1800, imgs:["product16.jpg"], category:"Unisex", badge:"New", stock:8},
-  {name:"Amber Rose", price:1700, imgs:["product17.jpg"], category:"Women", badge:"Sale", stock:4},
-  {name:"Royal Musk", price:2000, imgs:["product18.jpg"], category:"Men", badge:"", stock:10},
-  {name:"Exotic Oud", price:2200, imgs:["product19.jpg"], category:"Luxury", badge:"New", stock:2},
-  {name:"Mystic Bloom", price:2400, imgs:["product20.jpg"], category:"Women", badge:"Best Seller", stock:3}
+const products = [
+  {name:"Royal Attar", price:1500, img:"product1.jpg"},
+  {name:"Ocean Spray", price:1800, img:"product2.jpg"},
+  {name:"Mystic Oud", price:2000, img:"product3.jpg"},
+  {name:"Rose Delight", price:1700, img:"product4.jpg"},
+  {name:"Fresh Musk", price:2200, img:"product5.jpg"},
+  {name:"Amber Night", price:1600, img:"product6.jpg"},
+  {name:"Golden Essence", price:1900, img:"product7.jpg"},
+  {name:"Lotus Breeze", price:2100, img:"product8.jpg"},
+  {name:"Sandalwood Aura", price:2500, img:"product9.jpg"},
+  {name:"Vanilla Sky", price:2300, img:"product10.jpg"},
+  {name:"Jasmine Touch", price:1400, img:"product11.jpg"},
+  {name:"Mystic Oud II", price:2600, img:"product12.jpg"},
+  {name:"Rose Musk", price:1750, img:"product13.jpg"},
+  {name:"Oriental Night", price:1950, img:"product14.jpg"},
+  {name:"Luxury Essence", price:3000, img:"product15.jpg"},
+  {name:"Cool Mist", price:1800, img:"product16.jpg"},
+  {name:"Amber Rose", price:1700, img:"product17.jpg"},
+  {name:"Royal Musk", price:2000, img:"product18.jpg"},
+  {name:"Exotic Oud", price:2200, img:"product19.jpg"},
+  {name:"Mystic Bloom", price:2400, img:"product20.jpg"}
 ];
-let cart=[], recentlyViewed=[], discount=0;
+
+const productsDiv = document.getElementById('products');
+const productSelect = document.getElementById('product');
+
+products.forEach((p) => {
+  // Add to products grid
+  const div = document.createElement('div');
+  div.className = 'product';
+  div.innerHTML = `
+    <img src="${p.img}" alt="${p.name}">
+    <h3>${p.name}</h3>
+    <p>Rs ${p.price}</p>
+    <button onclick="order('${p.name}','${p.price}')">Order on WhatsApp</button>
+  `;
+  productsDiv.appendChild(div);
+  // Add to order form select
+  const option = document.createElement('option');
+  option.value = p.name;
+  option.textContent = `${p.name} - Rs ${p.price}`;
+  productSelect.appendChild(option);
+});
+
+function order(name, price){
+  let phone = "923165000045";
+  let msg = `Hello AK Store,\nI want to order:\nProduct: ${name}\nPrice: ${price}\nPayment: EasyPaisa / JazzCash / Bank`;
+  let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(msg);
+  window.open(url, "_blank");
+}
+
+function submitOrder(){
+  const name = document.getElementById('name').value;
+  const phone = document.getElementById('phone').value;
+  const address = document.getElementById('address').value;
+  const product = document.getElementById('product').value;
+  const payment = document.getElementById('payment').value;
+  if(!name || !phone || !address || !product){
+    alert('Please fill all fields');
+    return;
+  }
+  let phoneNumber = "923165000045";
+  let msg = `Hello AK Store,\nI want to order:\nName: ${name}\nPhone: ${phone}\nAddress: ${address}\nProduct: ${product}\nPayment: ${payment}`;
+  let url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(msg);
+  window.open(url, "_blank");
+}
 </script>
 </body>
 </html>
