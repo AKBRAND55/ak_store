@@ -105,9 +105,18 @@ products.forEach(p => {
 });
 
 function order(name, price){
-  let phone = "923165000045"; // ← your WhatsApp number
-  let msg = `Hello AK Store,%0AI want to order:%0A${name}%0APrice: ${price}%0APayment: EasyPaisa/JazzCash/Bank`;
-  window.open(`https://wa.me/${phone}?text=${msg}`, "_blank");
+  let phone = "923165000045";
+  let msg = `Hello AK Store,
+I want to order:
+Product: ${name}
+Price: ${price}
+Payment: EasyPaisa / JazzCash / Bank`;
+
+  let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(msg);
+  window.open(url, "_blank");
+}
+  
+  
 }
 </script>
 
