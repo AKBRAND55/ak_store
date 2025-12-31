@@ -25,8 +25,6 @@ button:hover { background:#006400; }
 .order-form h2 { text-align:center; }
 .order-form input, .order-form select { width:100%; padding:10px; margin:8px 0; border:1px solid #ccc; border-radius:5px; }
 footer { background:#000; color:#fff; text-align:center; padding:10px; margin-top:20px; }
-
-/* CART */
 #cartModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:200; }
 #cartModal .cart-content { background:#fff; max-width:400px; width:90%; padding:20px; border-radius:10px; position:relative; }
 #cartModal .cart-content h3 { margin-top:0; }
@@ -34,26 +32,19 @@ footer { background:#000; color:#fff; text-align:center; padding:10px; margin-to
 #cartModal .close-cart { position:absolute; top:10px; right:15px; cursor:pointer; font-weight:bold; font-size:18px; }
 #cartBtn { position:fixed; bottom:20px; right:20px; background:orange; color:#fff; border:none; padding:15px; border-radius:50%; cursor:pointer; z-index:150; font-weight:bold; }
 #cartBtn:hover { background:#e69500; }
-
-/* Testimonials */
 .testimonials { background:#fff; padding:20px; margin:20px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.1);}
 .testimonials h2 { text-align:center; margin-bottom:15px; }
 .testimonials .testimonial { margin-bottom:15px; font-style:italic; border-left:3px solid green; padding-left:10px; }
-
-/* Countdown */
 #countdown { text-align:center; margin:20px; font-weight:bold; font-size:18px; color:red; }
 </style>
 </head>
 <body>
-
 <header>
   <h1>AK Perfume Store</h1>
   <p>Cash on Delivery | EasyPaisa | JazzCash | Bank Transfer</p>
   <p class="warning">⚠️ Order only via official WhatsApp number to avoid scams.</p>
 </header>
-
 <div id="countdown">Flash Sale ends in: <span id="timer"></span></div>
-
 <div id="searchBar">
   <input type="text" id="searchInput" placeholder="Search perfumes...">
   <select id="categorySelect">
@@ -71,9 +62,7 @@ footer { background:#000; color:#fff; text-align:center; padding:10px; margin-to
     <option value="high">Price: High to Low</option>
   </select>
 </div>
-
 <div class="products" id="products"></div>
-
 <div id="cartModal">
   <div class="cart-content">
     <span class="close-cart" onclick="toggleCart()">×</span>
@@ -84,7 +73,6 @@ footer { background:#000; color:#fff; text-align:center; padding:10px; margin-to
   </div>
 </div>
 <button id="cartBtn" onclick="toggleCart()">Cart 🛒</button>
-
 <div class="order-form">
   <h2>Place Your Order</h2>
   <input type="text" id="name" placeholder="Your Name" required>
@@ -100,20 +88,16 @@ footer { background:#000; color:#fff; text-align:center; padding:10px; margin-to
   </select>
   <button onclick="submitOrder()">Submit Order on WhatsApp</button>
 </div>
-
 <div class="testimonials">
   <h2>What Our Customers Say</h2>
   <div class="testimonial">⭐ "Best perfume collection!" – Sara K.</div>
   <div class="testimonial">⭐ "High quality fragrances and fast delivery." – Ahmed R.</div>
   <div class="testimonial">⭐ "I love the Attar I bought, very elegant." – Ayesha T.</div>
 </div>
-
 <footer>
   <p>©️ 2025 AK Perfume Store | Pakistan</p>
 </footer>
-
 <script>
-// 20 Perfumes with categories
 const products=[
 {name:"Royal Attar", price:1500, imgs:["product1.jpg","product1b.jpg"], category:"Attar", badge:"New"},
 {name:"Ocean Spray", price:1800, imgs:["product2.jpg","product2b.jpg"], category:"Spray", badge:"Sale"},
@@ -136,153 +120,27 @@ const products=[
 {name:"Exotic Oud", price:2200, imgs:["product19.jpg"], category:"Luxury", badge:"New"},
 {name:"Mystic Bloom", price:2400, imgs:["product20.jpg"], category:"Women", badge:"Best Seller"}
 ];
-
 let cart=[];
-
 const productsDiv=document.getElementById("products");
 const productSelect=document.getElementById("product-select");
-
-function displayProducts(list){
-  productsDiv.innerHTML="";
-  productSelect.innerHTML='<option value="">Select Perfume</option>';
-  list.forEach((p,index)=>{
-    const div=document.createElement("div");
-    div.className="product";
-    div.innerHTML=`
-      ${p.badge?`<div class="badge">${p.badge}</div>`:""}
-      <img src="${p.imgs[0]}" alt="${p.name}" onclick="nextImage(${index})" id="img-${index}">
-      <h3>${p.name}</h3>
-      <p class="description">${p.category}</p>
-      <p class="price">Rs ${p.price}</p>
-      <input type="number" id="qty-${index}" value="1" min="1">
-      <button onclick="addToCart(${index})">Add to Cart</button>
-    `;
-    productsDiv.appendChild(div);
-    const option=document.createElement("option");
-    option.value=p.name;
-    option.textContent=`${p.name} - Rs ${p.price}`;
-    productSelect.appendChild(option);
-  });
-}
-
-// Image slider
-function nextImage(index){
-  const imgEl=document.getElementById(`img-${index}`);
-  const product=products[index];
-  const current=product.imgs.indexOf(imgEl.src.split("/").pop());
-  const next=(current+1)%product.imgs.length;
-  imgEl.src=product.imgs[next];
-}
-
+function displayProducts(list){productsDiv.innerHTML="";productSelect.innerHTML='<option value="">Select Perfume</option>';
+list.forEach((p,index)=>{const div=document.createElement("div");div.className="product";
+div.innerHTML=`${p.badge?`<div class="badge">${p.badge}</div>`:''}<img src="${p.imgs[0]}" alt="${p.name}" onclick="nextImage(${index})" id="img-${index}"><h3>${p.name}</h3><p class="description">${p.category}</p><p class="price">Rs ${p.price}</p><input type="number" id="qty-${index}" value="1" min="1"><button onclick="addToCart(${index})">Add to Cart</button>`;
+productsDiv.appendChild(div);
+const option=document.createElement("option");option.value=p.name;option.textContent=`${p.name} - Rs ${p.price}`;productSelect.appendChild(option);});}
+function nextImage(index){const imgEl=document.getElementById(`img-${index}`);const product=products[index];const current=product.imgs.indexOf(imgEl.src.split("/").pop());const next=(current+1)%product.imgs.length;imgEl.src=product.imgs[next];}
 displayProducts(products);
-
-// Search / Filter / Sort
-function filterAndSort(){
-  let term=document.getElementById("searchInput").value.toLowerCase();
-  let category=document.getElementById("categorySelect").value;
-  let sortVal=document.getElementById("sortSelect").value;
-  let filtered=products.filter(p=>p.name.toLowerCase().includes(term));
-  if(category) filtered=filtered.filter(p=>p.category===category);
-  if(sortVal==="low") filtered.sort((a,b)=>a.price-b.price);
-  if(sortVal==="high") filtered.sort((a,b)=>b.price-a.price);
-  displayProducts(filtered);
-}
+function filterAndSort(){let term=document.getElementById("searchInput").value.toLowerCase();let category=document.getElementById("categorySelect").value;let sortVal=document.getElementById("sortSelect").value;let filtered=products.filter(p=>p.name.toLowerCase().includes(term));if(category) filtered=filtered.filter(p=>p.category===category);if(sortVal==="low") filtered.sort((a,b)=>a.price-b.price);if(sortVal==="high") filtered.sort((a,b)=>b.price-a.price);displayProducts(filtered);}
 document.getElementById("searchInput").addEventListener("input", filterAndSort);
 document.getElementById("categorySelect").addEventListener("change", filterAndSort);
 document.getElementById("sortSelect").addEventListener("change", filterAndSort);
-
-// Cart functions
-function addToCart(index){
-  const qty=parseInt(document.getElementById(`qty-${index}`).value);
-  const product=products[index];
-  const existing=cart.find(item=>item.name===product.name);
-  if(existing){ existing.qty+=qty; } else { cart.push({name:product.name,price:product.price,qty:qty}); }
-  alert(`${product.name} added to cart (${qty})`);
-}
-
-function toggleCart(){
-  const modal=document.getElementById("cartModal");
-  modal.style.display=modal.style.display==="flex"?"none":"flex";
-  updateCart();
-}
-
-function updateCart(){
-  const itemsDiv=document.getElementById("cartItems");
-  itemsDiv.innerHTML="";
-  let total=0;
-  cart.forEach((item,index)=>{
-    total+=item.price*item.qty;
-    const div=document.createElement("div");
-    div.className="cart-item";
-    div.innerHTML=`${item.name} x ${item.qty} <span>Rs ${item.price*item.qty}</span> <button onclick="removeCart(${index})">❌</button>`;
-    itemsDiv.appendChild(div);
-  });
-  document.getElementById("cartTotal").textContent=total;
-}
-
-function removeCart(index){ cart.splice(index,1); updateCart(); }
-
-function checkoutCart(){
-  if(cart.length===0){ alert("Cart is empty!"); return; }
-  const name=document.getElementById("name").value.trim();
-  const phone=document.getElementById("phone").value.trim();
-  const address=document.getElementById("address").value.trim();
-  const payment=document.getElementById("payment").value;
-  if(!name||!phone||!address){ alert("Fill personal info!"); return; }
-  let orderItems="";
-  cart.forEach(item=>{ orderItems+=`${item.name} - Rs ${item.price} x ${item.qty}\n`; });
-  const msg=`Hello AK Perfume Store,
-I want to place an order:
-
-Name: ${name}
-Phone: ${phone}
-Address: ${address}
-Order Details:
-${orderItems}
-Payment Method: ${payment}`;
-  const waNumber="923165000045";
-  window.open("https://wa.me/"+waNumber+"?text="+encodeURIComponent(msg),"_blank");
-}
-
-// Order form
-function submitOrder(){
-  const name=document.getElementById("name").value.trim();
-  const phone=document.getElementById("phone").value.trim();
-  const address=document.getElementById("address").value.trim();
-  const selectedProduct=document.getElementById("product-select").value;
-  const qty=parseInt(document.getElementById("quantity").value);
-  const payment=document.getElementById("payment").value;
-  if(!name||!phone||!address){ alert("Fill all fields!"); return; }
-  let orderItems="";
-  if(cart.length>0){ cart.forEach(item=>{ orderItems+=`${item.name} - Rs ${item.price} x ${item.qty}\n`; }); }
-  else if(selectedProduct){ const product=products.find(p=>p.name===selectedProduct); orderItems=`${product.name} - Rs ${product.price} x ${qty}`; }
-  else{ alert("Select product or add to cart!"); return; }
-  const msg=`Hello AK Perfume Store,
-I want to place an order:
-
-Name: ${name}
-Phone: ${phone}
-Address: ${address}
-Order Details:
-${orderItems}
-Payment Method: ${payment}`;
-  const waNumber="923165000045";
-  window.open("https://wa.me/"+waNumber+"?text="+encodeURIComponent(msg),"_blank");
-}
-
-// Countdown
-let countdownDate=new Date().getTime()+2*60*60*1000;
-let timerSpan=document.getElementById("timer");
-setInterval(()=>{
-  let now=new Date().getTime();
-  let distance=countdownDate-now;
-  if(distance<0){ timerSpan.textContent="Sale ended"; return; }
-  let hours=Math.floor((distance%(24*60*60*1000))/(1000*60*60));
-  let minutes=Math.floor((distance%(60*60*1000))/(1000*60));
-  let seconds=Math.floor((distance%(60*1000))/1000);
-  timerSpan.textContent=`${hours}h ${minutes}m ${seconds}s`;
-},1000);
-
+function addToCart(index){const qty=parseInt(document.getElementById(`qty-${index}`).value);const product=products[index];const existing=cart.find(item=>item.name===product.name);if(existing){existing.qty+=qty;}else{cart.push({name:product.name,price:product.price,qty:qty});}alert(`${product.name} added to cart (${qty})`);}
+function toggleCart(){const modal=document.getElementById("cartModal");modal.style.display=modal.style.display==="flex"?"none":"flex";updateCart();}
+function updateCart(){const itemsDiv=document.getElementById("cartItems");itemsDiv.innerHTML="";let total=0;cart.forEach((item,index)=>{total+=item.price*item.qty;const div=document.createElement("div");div.className="cart-item";div.innerHTML=`${item.name} x ${item.qty} <span>Rs ${item.price*item.qty}</span> <button onclick="removeCart(${index})">❌</button>`;itemsDiv.appendChild(div);});document.getElementById("cartTotal").textContent=total;}
+function removeCart(index){cart.splice(index,1);updateCart();}
+function checkoutCart(){if(cart.length===0){alert("Cart is empty!");return;}const name=document.getElementById("name").value.trim();const phone=document.getElementById("phone").value.trim();const address=document.getElementById("address").value.trim();const payment=document.getElementById("payment").value;if(!name||!phone||!address){alert("Fill personal info!");return;}let orderItems="";cart.forEach(item=>{orderItems+=`${item.name} - Rs ${item.price} x ${item.qty}\n`;});const msg=`Hello AK Perfume Store,\nI want to place an order:\n\nName: ${name}\nPhone: ${phone}\nAddress: ${address}\nOrder Details:\n${orderItems}Payment Method: ${payment}`;const waNumber="923165000045";window.open("https://wa.me/"+waNumber+"?text="+encodeURIComponent(msg),"_blank");}
+function submitOrder(){const name=document.getElementById("name").value.trim();const phone=document.getElementById("phone").value.trim();const address=document.getElementById("address").value.trim();const selectedProduct=document.getElementById("product-select").value;const qty=parseInt(document.getElementById("quantity").value);const payment=document.getElementById("payment").value;if(!name||!phone||!address){alert("Fill all fields!");return;}let orderItems="";if(cart.length>0){cart.forEach(item=>{orderItems+=`${item.name} - Rs ${item.price} x ${item.qty}\n`;});}else if(selectedProduct){const product=products.find(p=>p.name===selectedProduct);orderItems=`${product.name} - Rs ${product.price} x ${qty}`;}else{alert("Select product or add to cart!");return;}const msg=`Hello AK Perfume Store,\nI want to place an order:\n\nName: ${name}\nPhone: ${phone}\nAddress: ${address}\nOrder Details:\n${orderItems}Payment Method: ${payment}`;const waNumber="923165000045";window.open("https://wa.me/"+waNumber+"?text="+encodeURIComponent(msg),"_blank");}
+let countdownDate=new Date().getTime()+2*60*60*1000;let timerSpan=document.getElementById("timer");setInterval(()=>{let now=new Date().getTime();let distance=countdownDate-now;if(distance<0){timerSpan.textContent="Sale ended";return;}let hours=Math.floor((distance%(24*60*60*1000))/(1000*60*60));let minutes=Math.floor((distance%(60*60*1000))/(1000*60));let seconds=Math.floor((distance%(60*1000))/1000);timerSpan.textContent=`${hours}h ${minutes}m ${seconds}s`;},1000);
 </script>
 </body>
 </html>
