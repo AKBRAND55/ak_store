@@ -97,27 +97,32 @@ Order only on our official WhatsApp number.
 </p>
 </header>  
   
-  
+  <div class="category-filter">
+  <button onclick="filterProducts('All')">All</button>
+  <button onclick="filterProducts('Under 2000')">Under 2000</button>
+  <button onclick="filterProducts('Oil Based')">Oil Based</button>
+  <button onclick="filterProducts('Alcohol Based')">Alcohol Based</button>
+</div>
   <div class="products">
     
 <script>
 const products = [
-  {name:"Ring Box", price:"Rs 1500", img:"product1.jpg"},
-  {name:"Product 2", price:"Rs 1800", img:"product2.jpg"},
-  {name:"Product 3", price:"Rs 2000", img:"product3.jpg"},
-  {name:"Product 4", price:"Rs 1700", img:"product4.jpg"},
-  {name:"Product 5", price:"Rs 2200", img:"product5.jpg"},
-  {name:"Product 6", price:"Rs 1600", img:"product6.jpg"},
-  {name:"Product 7", price:"Rs 1900", img:"product7.jpg"},
-  {name:"Product 8", price:"Rs 2100", img:"product8.jpg"},
-  {name:"Product 9", price:"Rs 2500", img:"product9.jpg"},
-  {name:"Product 10", price:"Rs 2300", img:"product10.jpg"},
-  {name:"Product 11", price:"Rs 1400", img:"product11.jpg"},
-  {name:"Product 12", price:"Rs 2600", img:"product12.jpg"},
-  {name:"Product 13", price:"Rs 1750", img:"product13.jpg"},
-  {name:"Product 14", price:"Rs 1950", img:"product14.jpg"},
-  {name:"Product 15", price:"Rs 3000", img:"product15.jpg"},
-  {name:"Product 16", price:"Rs 3500", img:"product15.jpg"},
+  {name:"Ring Box", price:"Rs 1500", img:"product1.jpg",category:"Under 2000"},
+  {name:"Product 2", price:"Rs 1800", img:"product2.jpg",category:"Alcohol Based"},
+  {name:"Product 3", price:"Rs 2000", img:"product3.jpg",category:"Oil Based"},
+  {name:"Product 4", price:"Rs 1700", img:"product4.jpg",category:"Under 2000"},
+  {name:"Product 5", price:"Rs 2200", img:"product5.jpg",category:"Alcohol Based"},
+  {name:"Product 6", price:"Rs 1600", img:"product6.jpg"},category:"Under 2000",
+  {name:"Product 7", price:"Rs 1900", img:"product7.jpg",category:"Under 2000"},
+  {name:"Product 8", price:"Rs 2100", img:"product8.jpg",category:"Oil Based"},
+  {name:"Product 9", price:"Rs 2500", img:"product9.jpg",category:"Under 2000"},
+  {name:"Product 10", price:"Rs 2300", img:"product10.jpg",category:"Oil Based"},
+  {name:"Product 11", price:"Rs 1400", img:"product11.jpg",category:"Alcohol Based"},
+  {name:"Product 12", price:"Rs 2600", img:"product12.jpg",category:"Oil Based"},
+  {name:"Product 13", price:"Rs 1750", img:"product13.jpg",category:"Alcohol Based"},
+  {name:"Product 14", price:"Rs 1950", img:"product14.jpg",category:"Under 2000"},
+  {name:"Product 15", price:"Rs 3000", img:"product15.jpg",category:"Oil Based"},
+  {name:"Product 16", price:"Rs 3500", img:"product15.jpg",category:"Alcohol Based"},
 ];
   
   products.forEach(p => {
@@ -132,7 +137,22 @@ const products = [
     `);
 });
   
-  
+function filterProducts(cat) {
+  const container = document.querySelector('.products');
+  container.innerHTML = ''; // pehle saare products clear karo
+  products.forEach(p => {
+    if(cat === 'All' || p.category === cat || (cat === 'Under 2000' && p.price <= 2000)) {
+      container.innerHTML += `
+        <div class="product">
+          <img src="${p.img}" alt="${p.name}">
+          <h3>${p.name}</h3>
+          <p>Rs ${p.price}</p>
+          <button onclick="order('${p.name}','Rs ${p.price}')">Order on WhatsApp</button>
+        </div>
+      `;
+    }
+  });
+}  
 window.onload = function() {
   const productSelect = document.getElementById("product");
   products.forEach(p => {
