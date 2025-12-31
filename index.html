@@ -221,7 +221,13 @@ function toggleCart(){
   modal.style.display=modal.style.display==="flex"?"none":"flex";
   updateCart();
 }
-
+function setStars(num){
+  const stars=document.querySelectorAll("#starRating span");
+  stars.forEach((s,i)=>{
+    s.classList.toggle("active", i < num);
+  });
+  document.getElementById("reviewStars").value="⭐".repeat(num);
+}
 function updateCart(){
   const itemsDiv=document.getElementById("cartItems");
   itemsDiv.innerHTML="";
@@ -298,13 +304,7 @@ setInterval(()=>{
   let seconds=Math.floor((distance%(60*1000))/1000);
   timerSpan.textContent=`${hours}h ${minutes}m ${seconds}s`;
 },1000);
-function setStars(num){
-  const stars=document.querySelectorAll("#starRating span");
-  stars.forEach((s,i)=>{
-    s.classList.toggle("active", i < num);
-  });
-  document.getElementById("reviewStars").value="⭐".repeat(num);
-}
+
 </script>
 </body>
 </html>
