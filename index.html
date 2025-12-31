@@ -118,7 +118,16 @@ const products = [
   {name:"Product 14", price:"Rs 1950", img:"images/product14.jpg"},
   {name:"Product 15", price:"Rs 3000", img:"images/product15.jpg"}
 ];
-  <div class="order-form">
+  
+  products.forEach(p => {
+  document.write(`
+     <div class="product">
+      <img src="${p.img}" alt="${p.name}">
+      <h3>${p.name}</h3>
+      <p>${p.price}</p>
+      <button onclick="order('${p.name}','${p.price}')">Order on WhatsApp</button>
+    </div>
+    <div class="order-form">
   <h2>Place Your Order</h2>
 
   <input type="text" id="name" placeholder="Your Name" required>
@@ -138,15 +147,6 @@ const products = [
 
   <button onclick="submitOrder()">Submit Order on WhatsApp</button>
 </div>
-  products.forEach(p => {
-  document.write(`
-     <div class="product">
-      <img src="${p.img}" alt="${p.name}">
-      <h3>${p.name}</h3>
-      <p>${p.price}</p>
-      <button onclick="order('${p.name}','${p.price}')">Order on WhatsApp</button>
-    </div>
-    
      
     `);
 });
