@@ -6,145 +6,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 /* ===== GENERAL STYLES ===== */
-body {
-  font-family: Arial, sans-serif;
-  margin:0;
-  background:#f5f5f5;
-}
-header {
-  background:#000;
-  color:#fff;
-  padding:15px;
-  text-align:center;
-  position:sticky;
-  top:0;
-  z-index:100;
-}
-header p.warning {
-  color:red;
-  font-weight:bold;
-  margin:5px 0;
-}
-.products {
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap:15px;
-  padding:20px;
-}
-.product {
-  background:#fff;
-  padding:15px;
-  border-radius:10px;
-  text-align:center;
-  box-shadow:0 2px 5px rgba(0,0,0,0.1);
-  position:relative;
-  overflow:hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.product:hover {
-  transform: translateY(-5px);
-  box-shadow:0 5px 15px rgba(0,0,0,0.2);
-}
-.product img {
-  width:100%;
-  height:180px;
-  object-fit:cover;
-  border-radius:6px;
-  margin-bottom:10px;
-}
+body { font-family: Arial, sans-serif; margin:0; background:#f5f5f5; }
+header { background:#000; color:#fff; padding:15px; text-align:center; position:sticky; top:0; z-index:100; }
+header p.warning { color:red; font-weight:bold; margin:5px 0; }
+.products { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:15px; padding:20px; }
+.product { background:#fff; padding:15px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.1); position:relative; overflow:hidden; transition: transform 0.3s, box-shadow 0.3s; }
+.product:hover { transform: translateY(-5px); box-shadow:0 5px 15px rgba(0,0,0,0.2); }
+.product img { width:100%; height:180px; object-fit:cover; border-radius:6px; margin-bottom:10px; }
 .product h3 { margin:5px 0; }
-.product p.description {
-  font-size:14px;
-  color:#555;
-  min-height:40px;
-}
+.product p.description { font-size:14px; color:#555; min-height:40px; }
 .product p.price { font-weight:bold; margin:5px 0; }
-.product .badge {
-  position:absolute;
-  top:10px;
-  left:10px;
-  background:red;
-  color:#fff;
-  padding:3px 8px;
-  border-radius:5px;
-  font-size:12px;
-}
-.product input[type="number"] {
-  width:60px;
-  padding:5px;
-  margin-top:5px;
-}
-button {
-  background:green;
-  color:white;
-  border:none;
-  padding:10px;
-  margin-top:10px;
-  width:100%;
-  border-radius:5px;
-  cursor:pointer;
-}
+.product .badge { position:absolute; top:10px; left:10px; background:red; color:#fff; padding:3px 8px; border-radius:5px; font-size:12px; }
+.product input[type="number"] { width:60px; padding:5px; margin-top:5px; }
+button { background:green; color:white; border:none; padding:10px; margin-top:10px; width:100%; border-radius:5px; cursor:pointer; }
 button:hover { background:#006400; }
-.order-form {
-  background:#fff;
-  max-width:500px;
-  margin:20px auto;
-  padding:20px;
-  border-radius:10px;
-  box-shadow:0 2px 5px rgba(0,0,0,0.1);
-}
+.order-form { background:#fff; max-width:500px; margin:20px auto; padding:20px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
 .order-form h2 { text-align:center; }
 .order-form input, .order-form select { width:100%; padding:10px; margin:8px 0; border:1px solid #ccc; border-radius:5px; }
-footer {
-  background:#000;
-  color:#fff;
-  text-align:center;
-  padding:10px;
-  margin-top:20px;
-}
+footer { background:#000; color:#fff; text-align:center; padding:10px; margin-top:20px; }
 
 /* ===== CART MODAL ===== */
-#cartModal {
-  display:none;
-  position:fixed;
-  top:0; left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.6);
-  justify-content:center;
-  align-items:center;
-  z-index:200;
-}
-#cartModal .cart-content {
-  background:#fff;
-  max-width:400px;
-  width:90%;
-  padding:20px;
-  border-radius:10px;
-  position:relative;
-}
+#cartModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:200; }
+#cartModal .cart-content { background:#fff; max-width:400px; width:90%; padding:20px; border-radius:10px; position:relative; }
 #cartModal .cart-content h3 { margin-top:0; }
 #cartModal .cart-item { display:flex; justify-content:space-between; margin-bottom:10px; }
-#cartModal .close-cart {
-  position:absolute;
-  top:10px; right:15px;
-  cursor:pointer;
-  font-weight:bold;
-  font-size:18px;
-}
-#cartBtn {
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  background:orange;
-  color:#fff;
-  border:none;
-  padding:15px;
-  border-radius:50%;
-  cursor:pointer;
-  z-index:150;
-  font-weight:bold;
-}
+#cartModal .close-cart { position:absolute; top:10px; right:15px; cursor:pointer; font-weight:bold; font-size:18px; }
+#cartBtn { position:fixed; bottom:20px; right:20px; background:orange; color:#fff; border:none; padding:15px; border-radius:50%; cursor:pointer; z-index:150; font-weight:bold; }
 #cartBtn:hover { background:#e69500; }
 
 /* ===== TESTIMONIALS ===== */
@@ -217,23 +104,38 @@ footer {
 </footer>
 
 <script>
-// ===== PRODUCTS DATA =====
-const products = [
+// ===== PRODUCTS DATA 20 =====
+const products=[
   {name:"Ring Box", price:1500, img:"product1.jpg", description:"Elegant ring box.", badge:"New"},
   {name:"Product 2", price:1800, img:"product2.jpg", description:"High-quality product.", badge:"Sale"},
   {name:"Product 3", price:2000, img:"product3.jpg", description:"Premium daily use.", badge:"Best Seller"},
-  {name:"Product 4", price:1700, img:"images/product4.jpg", description:"Stylish design.", badge:""},
-  {name:"Product 5", price:2200, img:"images/product5.jpg", description:"Limited edition.", badge:"Sale"}
+  {name:"Product 4", price:1700, img:"images/product4.jpg", description:"Stylish design.", badge:"New"},
+  {name:"Product 5", price:2200, img:"images/product5.jpg", description:"Limited edition.", badge:"Sale"},
+  {name:"Product 6", price:1600, img:"images/product6.jpg", description:"Affordable and reliable.", badge:""},
+  {name:"Product 7", price:1900, img:"images/product7.jpg", description:"Best seller product.", badge:"Best Seller"},
+  {name:"Product 8", price:2100, img:"images/product8.jpg", description:"High quality.", badge:""},
+  {name:"Product 9", price:2500, img:"images/product9.jpg", description:"Exclusive product.", badge:"New"},
+  {name:"Product 10", price:2300, img:"images/product10.jpg", description:"Popular choice.", badge:"Sale"},
+  {name:"Product 11", price:1400, img:"images/product11.jpg", description:"Compact and useful.", badge:""},
+  {name:"Product 12", price:2600, img:"images/product12.jpg", description:"High-end product.", badge:"Best Seller"},
+  {name:"Product 13", price:1750, img:"images/product13.jpg", description:"Perfect for gifting.", badge:"New"},
+  {name:"Product 14", price:1950, img:"images/product14.jpg", description:"Stylish and affordable.", badge:"Sale"},
+  {name:"Product 15", price:3000, img:"images/product15.jpg", description:"Luxury product.", badge:"Best Seller"},
+  {name:"Product 16", price:1800, img:"images/product16.jpg", description:"Trendy item.", badge:"New"},
+  {name:"Product 17", price:1700, img:"images/product17.jpg", description:"High quality.", badge:"Sale"},
+  {name:"Product 18", price:2000, img:"images/product18.jpg", description:"Elegant design.", badge:""},
+  {name:"Product 19", price:2200, img:"images/product19.jpg", description:"Limited stock.", badge:"New"},
+  {name:"Product 20", price:2400, img:"images/product20.jpg", description:"Premium material.", badge:"Best Seller"}
 ];
 
-let cart = [];
+let cart=[];
 
 // ===== DISPLAY PRODUCTS =====
-const productsDiv = document.getElementById("products");
+const productsDiv=document.getElementById("products");
 products.forEach((p,index)=>{
-  const div = document.createElement("div");
-  div.className = "product";
-  div.innerHTML = `
+  const div=document.createElement("div");
+  div.className="product";
+  div.innerHTML=`
     ${p.badge?`<div class="badge">${p.badge}</div>`:""}
     <img src="${p.img}" alt="${p.name}">
     <h3>${p.name}</h3>
@@ -246,9 +148,9 @@ products.forEach((p,index)=>{
 });
 
 // Populate product select
-const productSelect = document.getElementById("product-select");
+const productSelect=document.getElementById("product-select");
 products.forEach(p=>{
-  const option = document.createElement("option");
+  const option=document.createElement("option");
   option.value=p.name;
   option.textContent=`${p.name} - Rs ${p.price}`;
   productSelect.appendChild(option);
@@ -343,7 +245,7 @@ Payment Method: ${payment}`;
 }
 
 // ===== COUNTDOWN TIMER =====
-let countdownDate = new Date().getTime() + 2*60*60*1000; // 2 hours from now
+let countdownDate=new Date().getTime()+2*60*60*1000;
 let timerSpan=document.getElementById("timer");
 setInterval(()=>{
   let now=new Date().getTime();
