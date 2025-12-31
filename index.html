@@ -62,6 +62,26 @@ footer {
   text-align: center;
   padding: 10px;
 }
+  .order-form{
+  background:#fff;
+  max-width:400px;
+  margin:20px auto;
+  padding:20px;
+  border-radius:10px;
+}
+
+.order-form h2{
+  text-align:center;
+}
+
+.order-form input,
+.order-form select{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border:1px solid #ccc;
+  border-radius:5px;
+}
 </style>
 </head>
 
@@ -77,7 +97,26 @@ Order only on our official WhatsApp number.
 </p>
 </header>  
   
-  
+  <div class="order-form">
+  <h2>Place Your Order</h2>
+
+  <input type="text" id="name" placeholder="Your Name" required>
+  <input type="text" id="phone" placeholder="Phone Number" required>
+  <input type="text" id="address" placeholder="Delivery Address" required>
+
+  <select id="product">
+    <option value="">Select Product</option>
+  </select>
+
+  <select id="payment">
+    <option value="Cash on Delivery">Cash on Delivery</option>
+    <option value="EasyPaisa">EasyPaisa</option>
+    <option value="JazzCash">JazzCash</option>
+    <option value="Bank Transfer">Bank Transfer</option>
+  </select>
+
+  <button onclick="submitOrder()">Submit Order on WhatsApp</button>
+</div>
   <div class="products">
 
 <script>
@@ -122,7 +161,38 @@ Payment: EasyPaisa / JazzCash / Bank`;
   let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(msg);
   window.open(url, "_blank");
 }
-  
+  <script>
+// Products dropdown fill
+products.forEach(p => {
+  let option = document.createElement("option");
+  option.value = p.name + " - " + p.price;
+  option.textContent = p.name + " (" + p.price + ")";
+  document.getElementById("product").appendChild(option);
+});
+
+function submitOrder(){
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phone").value;
+  let address = document.getElementById("address").value;
+  let product = document.getElementById("product").value;
+  let payment = document.getElementById("payment").value;
+
+  if(!name || !phone || !address || !product){
+    alert("Please fill all fields");
+    return;
+  }
+
+  let msg = `Hello AK Store,
+Name: ${name}
+Phone: ${phone}
+Address: ${address}
+Product: ${product}
+Payment Method: ${payment}`;
+
+  let url = "https://wa.me/923165000045?text=" + encodeURIComponent(msg);
+  window.open(url, "_blank");
+}
+</script>
 </script>
 
 </div>
