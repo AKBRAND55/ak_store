@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="description" content="AK Brand Perfumes – Original perfumes in Pakistan. COD available.">
+<meta name="keywords" content="Perfumes Pakistan, Attar, AK Brand">
+<meta name="author" content="AK Brand Perfumes">
 <meta charset="UTF-8">
 <title>AK Perfume Brand Store</title>
   <link rel="icon" type="image/png" href="favicon.png">
@@ -73,6 +76,7 @@ footer { background:#000; color:#fff; text-align:center; padding:10px; margin-to
 <body>
   <a href="https://wa.me/923165000045"
  class="wa-float" target="_blank">💬</a>
+  <p id="storeStatus"></p>
   
 
 <header>
@@ -353,6 +357,11 @@ setInterval(()=>{
   let seconds=Math.floor((distance%(60*1000))/1000);
   timerSpan.textContent=`${hours}h ${minutes}m ${seconds}s`;
 },1000);
+
+  const hour = new Date().getHours();
+storeStatus.innerHTML = hour>=10 && hour<=22
+ ? "🟢 Store Open"
+ : "🔴 Store Closed";
   
 
 </script>
