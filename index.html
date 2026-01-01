@@ -157,26 +157,26 @@ footer { background:#000; color:#fff; text-align:center; padding:10px; margin-to
 <script>
 // 20 Perfumes with categories
 const products=[
-{name:"Royal Attar", price:1500, imgs:["product1.jpg","product1b.jpg"], category:"Attar", badge:"New",stock:"true"},
-{name:"Ocean Spray", price:1800, imgs:["product2.jpg","product2b.jpg"], category:"Spray", badge:"Sale",stock:"false"},
-{name:"Mystic Oud", price:2000, imgs:["product3.jpg"], category:"Luxury", badge:"Best Seller",stock:"true"},
-{name:"Rose Delight", price:1700, imgs:["product4.jpg"], category:"Women",badge:"Sale",stock:"true"},
-{name:"Fresh Musk", price:2200, imgs:["product5.jpg"], category:"Men", badge:"Sale",stock:"true"},
-{name:"Amber Night", price:1600, imgs:["product6.jpg"], category:"Unisex", badge:"",stock:"true""},
-{name:"Golden Essence", price:1900, imgs:["product7.jpg"], category:"Luxury", badge:"Best Seller",stock:"true"},
-{name:"Lotus Breeze", price:2100, imgs:["product8.jpg"], category:"Women", badge:"",stock:"true""},
-{name:"Sandalwood Aura", price:2500, imgs:["product9.jpg"], category:"Men", badge:"New",stock:"true"},
-{name:"Vanilla Sky", price:2300, imgs:["product10.jpg"], category:"Unisex", badge:"Sale",stock:"true"},
-{name:"Jasmine Touch", price:1400, imgs:["product11.jpg"], category:"Women", badge:"",stock:"true""},
-{name:"Mystic Oud II", price:2600, imgs:["product12.jpg"], category:"Luxury", badge:"Best Seller",stock:"true"},
-{name:"Rose Musk", price:1750, imgs:["product13.jpg"], category:"Women", badge:"New",stock:"true"},
-{name:"Oriental Night", price:1950, imgs:["product14.jpg"], category:"Men", badge:"Sale",stock:"true"},
-{name:"Luxury Essence", price:3000, imgs:["product15.jpg"], category:"Luxury", badge:"Best Seller",stock:"true"},
-{name:"Cool Mist", price:1800, imgs:["product16.jpg"], category:"Unisex", badge:"New",stock:"true"},
-{name:"Amber Rose", price:1700, imgs:["product17.jpg"], category:"Women", badge:"Sale",stock:"true"},
-{name:"Royal Musk", price:2000, imgs:["product18.jpg"], category:"Men", badge:"",stock:"true"},
-{name:"Exotic Oud", price:2200, imgs:["product19.jpg"], category:"Luxury", badge:"New",stock:"true"},
-{name:"Mystic Bloom", price:2400, imgs:["product20.jpg"], category:"Women", badge:"Best Seller",stock:"true"}
+{name:"Royal Attar", price:1500, imgs:["product1.jpg","product1b.jpg"], category:"Attar", badge:"New"},
+{name:"Ocean Spray", price:1800, imgs:["product2.jpg","product2b.jpg"], category:"Spray", badge:"Sale"},
+{name:"Mystic Oud", price:2000, imgs:["product3.jpg"], category:"Luxury", badge:"Best Seller"},
+{name:"Rose Delight", price:1700, imgs:["product4.jpg"], category:"Women",badge:"Sale"},
+{name:"Fresh Musk", price:2200, imgs:["product5.jpg"], category:"Men", badge:"Sale"},
+{name:"Amber Night", price:1600, imgs:["product6.jpg"], category:"Unisex", badge:"},
+{name:"Golden Essence", price:1900, imgs:["product7.jpg"], category:"Luxury", badge:"Best Seller"},
+{name:"Lotus Breeze", price:2100, imgs:["product8.jpg"], category:"Women", badge:""},
+{name:"Sandalwood Aura", price:2500, imgs:["product9.jpg"], category:"Men", badge:"New"},
+{name:"Vanilla Sky", price:2300, imgs:["product10.jpg"], category:"Unisex", badge:"Sale"},
+{name:"Jasmine Touch", price:1400, imgs:["product11.jpg"], category:"Women", badge:""},
+{name:"Mystic Oud II", price:2600, imgs:["product12.jpg"], category:"Luxury", badge:"Best Seller"},
+{name:"Rose Musk", price:1750, imgs:["product13.jpg"], category:"Women", badge:"New"},
+{name:"Oriental Night", price:1950, imgs:["product14.jpg"], category:"Men", badge:"Sale"},
+{name:"Luxury Essence", price:3000, imgs:["product15.jpg"], category:"Luxury", badge:"Best Seller"},
+{name:"Cool Mist", price:1800, imgs:["product16.jpg"], category:"Unisex", badge:"New"},
+{name:"Amber Rose", price:1700, imgs:["product17.jpg"], category:"Women", badge:"Sale"},
+{name:"Royal Musk", price:2000, imgs:["product18.jpg"], category:"Men", badge:""},
+{name:"Exotic Oud", price:2200, imgs:["product19.jpg"], category:"Luxury", badge:"New"},
+{name:"Mystic Bloom", price:2400, imgs:["product20.jpg"], category:"Women", badge:"Best Seller"},
 ];
 
 let cart=[];
@@ -331,10 +331,7 @@ setInterval(()=>{
   let seconds=Math.floor((distance%(60*1000))/1000);
   timerSpan.textContent=`${hours}h ${minutes}m ${seconds}s`;
 },1000);
-  ${p.stock
- ? '<span style="color:green;font-weight:bold">In Stock</span>'
- : '<span style="color:red;font-weight:bold">Out of Stock</span>'
-}
+  
 
 </script>
 </body>
