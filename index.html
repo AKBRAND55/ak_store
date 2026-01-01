@@ -329,12 +329,22 @@ Payment Method: ${payment}`;
   let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
 
 function submitReview(){
+  const reviewText = document.getElementById("reviewText");
+  const reviewList = document.getElementById("reviewList");
   const text = reviewText.value.trim();
   if(!text) return alert("Write review");
   reviews.push(text);
   localStorage.setItem("reviews", JSON.stringify(reviews));
   showReviews();
   reviewText.value="";
+}
+
+function showReviews(){
+  const reviewList = document.getElementById("reviewList");
+  reviewList.innerHTML="";
+  reviews.forEach(r=>{
+    reviewList.innerHTML += `<p>⭐ ${r}</p>`;
+  });
 }
 
 function showReviews(){
@@ -359,11 +369,7 @@ setInterval(()=>{
 },1000);
 function updateStoreStatus(){
   const storeStatus = document.getElementById("storeStatus");
-  const hour = new Date().getHours();
-  storeStatus.innerHTML = (hour >= 10 && hour < 22)
-    ? "🟢 Store Open"
-    : "🔴 Store Closed";
-}
+  
 
 // Initial call
 updateStoreStatus();
