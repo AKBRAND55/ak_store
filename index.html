@@ -73,6 +73,9 @@ footer { background:#000; color:#fff; text-align:center; padding:10px; margin-to
 <body>
   <a href="https://wa.me/923165000045"
  class="wa-float" target="_blank">💬</a>
+  <textarea id="reviewText" placeholder="Write review"></textarea>
+<button onclick="submitReview()">Submit Review</button>
+<div id="reviewList"></div>
 
 <header>
   <h1>AK Perfume Brand Store</h1>
@@ -318,6 +321,24 @@ Payment Method: ${payment}`;
   const waNumber="923165000045";
   window.open("https://wa.me/"+waNumber+"?text="+encodeURIComponent(msg),"_blank");
 }
+  let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+
+function submitReview(){
+  const text = reviewText.value.trim();
+  if(!text) return alert("Write review");
+  reviews.push(text);
+  localStorage.setItem("reviews", JSON.stringify(reviews));
+  showReviews();
+  reviewText.value="";
+}
+
+function showReviews(){
+  reviewList.innerHTML="";
+  reviews.forEach(r=>{
+    reviewList.innerHTML += `<p>⭐ ${r}</p>`;
+  });
+}
+showReviews();
 
 // Countdown
 let countdownDate=new Date().getTime()+2*60*60*1000;
