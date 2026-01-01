@@ -329,13 +329,7 @@ Payment Method: ${payment}`;
   let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
 
 
-function showReviews(){
-  reviewList.innerHTML="";
-  reviews.forEach(r=>{
-    reviewList.innerHTML += `<p>⭐ ${r}</p>`;
-  });
-}
-showReviews();
+
 
 // Countdown
 let countdownDate=new Date().getTime()+2*60*60*1000;
@@ -349,22 +343,6 @@ setInterval(()=>{
   let seconds=Math.floor((distance%(60*1000))/1000);
   timerSpan.textContent=`${hours}h ${minutes}m ${seconds}s`;
 },1000);
-function updateStoreStatus(){
-  const storeStatus = document.getElementById("storeStatus");
-  
-
-// Initial call
-updateStoreStatus();
-
-// Update every minute
-setInterval(updateStoreStatus, 60000);
-  window.addEventListener("DOMContentLoaded", () => {
-  const storeStatus = document.getElementById("storeStatus");
-  const hour = new Date().getHours();
-  storeStatus.innerHTML = (hour >= 10 && hour < 22)
-    ? "🟢 Store Open"
-    : "🔴 Store Closed";
-});
 
 </script>
 </body>
